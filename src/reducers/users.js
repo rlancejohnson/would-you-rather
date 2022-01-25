@@ -8,7 +8,7 @@ export default function users(state = {}, action) {
 
             return {
                 ...state,
-                users
+                ...users
             }
 
         case ADD_USER_QUESTION:

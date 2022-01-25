@@ -8,7 +8,7 @@ export default function questions(state = {}, action) {
 
             return {
                 ...state,
-                questions
+                ...questions
             }
 
         case ADD_QUESTION:

@@ -1,0 +1,21 @@
+.layout {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    gap: 100px;
+}
+
+.section {
+    display: flex;
+    justify-content: center;
+    flex-basis: 80%;
+}
+
+.logo {
+    margin-top: 150px;
+    align-content: center;
+}
+
+.user-selector {
+    align-content: center;
+}

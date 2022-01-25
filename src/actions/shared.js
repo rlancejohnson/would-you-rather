@@ -1,10 +1,10 @@
 import { _getUsers, _getQuestions } from '../services/_DATA'
 
-export const SET_DATA = 'SET_DATA'
+export const SET_INITIAL_DATA = 'SET_INITIAL_DATA'
 
-function setData(users, questions) {
+function setInitialData(users, questions) {
     return {
-        type: SET_DATA,
+        type: SET_INITIAL_DATA,
         users,
         questions
     }
@@ -17,7 +17,7 @@ export function handleSetData() {
             _getQuestions()
         ])
             .then(([users, questions]) => {
-                dispatch(setData(users, questions))
+                dispatch(setInitialData(users, questions))
             })
     }
 }

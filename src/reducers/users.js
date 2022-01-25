@@ -27,7 +27,7 @@ export function users(state = {}, action) {
             }
 
         case ADD_USER_ANSWER:
-            const { authedUserId } = state
+            const authedUserId = state['authedUser']
             const { qid, answer } = action
 
             return {

@@ -1,8 +1,9 @@
-import { SET_USERS, ADD_USER_QUESTION, ADD_USER_ANSWER } from '../actions/users'
+import { SET_DATA } from '../actions/shared'
+import { ADD_USER_QUESTION, ADD_USER_ANSWER } from '../actions/users'
 
 export function users(state = {}, action) {
     switch (action.type) {
-        case SET_USERS:
+        case SET_DATA:
             const { users } = action
 
             return {

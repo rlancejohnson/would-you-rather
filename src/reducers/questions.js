@@ -1,8 +1,9 @@
-import { SET_QUESTIONS, ADD_QUESTION, ADD_QUESTION_ANSWER } from '../actions/questions'
+import { SET_DATA } from '../actions/shared'
+import { ADD_QUESTION, ADD_QUESTION_ANSWER } from '../actions/questions'
 
 export function questions(state = {}, action) {
     switch (action.type) {
-        case SET_QUESTIONS:
+        case SET_DATA:
             const { questions } = action
 
             return {

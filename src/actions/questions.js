@@ -1,16 +1,8 @@
 import { _saveQuestion, _saveQuestionAnswer } from '../services/_DATA'
 import { addUserQuestion, addUserAnswer } from './users'
 
-export const SET_QUESTIONS = 'SET_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const ADD_QUESTION_ANSWER = 'ADD_QUESTION_ANSWER'
-
-export function setQuestions(questions) {
-    return {
-        type: SET_QUESTIONS,
-        questions
-    }
-}
 
 function addQuestion(question) {
     return {
@@ -23,7 +15,7 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
 
-        _saveQuestion({ optionOneText, optionTwoText, author: authedUser })
+        return _saveQuestion({ optionOneText, optionTwoText, author: authedUser })
             .then((question) => {
                 dispatch(addQuestion(question))
                 dispatch(addUserQuestion(question))
@@ -44,7 +36,7 @@ export function handleAddAnswer(qid, answer) {
     return (dispatch, getState) => {
         const { authedUser } = getState()
 
-        _saveQuestionAnswer({ authedUser, qid, answer })
+        return _saveQuestionAnswer({ authedUser, qid, answer })
             .then(() => {
                 dispatch(addQuestionAnswer(qid, answer))
                 dispatch(addUserAnswer(qid, answer))

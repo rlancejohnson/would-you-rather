@@ -10,7 +10,7 @@ function setInitialData(users, questions) {
     }
 }
 
-export function handleSetData() {
+export function handleSetInitialData() {
     return (dispatch) => {
         return Promise.all([
             _getUsers(),

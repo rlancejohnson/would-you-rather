@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: column wrap;
     align-content: center;
-    gap: 100px;
+    gap: 50px;
 }
 
 .section {
@@ -17,5 +17,7 @@
 }
 
 .user-selector {
+    color: #B7B7B7;
     align-content: center;
+    border-radius: 5px;
 }

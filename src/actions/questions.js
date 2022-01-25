@@ -23,10 +23,9 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
     }
 }
 
-function addQuestionAnswer(authedUser, qid, answer) {
+function addQuestionAnswer(qid, answer) {
     return {
         type: ADD_QUESTION_ANSWER,
-        authedUser,
         qid,
         answer
     }

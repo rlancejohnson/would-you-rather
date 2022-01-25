@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown } from 'react-dropdown-now'
 import 'react-dropdown-now/style.css';

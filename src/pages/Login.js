@@ -12,8 +12,8 @@ export default function Login() {
     const dispatch = useDispatch()
     const users = useSelector((state) => state.users)
 
-    const handleChange = (userId) => {
-        dispatch(setAuthedUser(userId))
+    const handleChange = ({ value }) => {
+        dispatch(setAuthedUser(value))
     }
 
     return (

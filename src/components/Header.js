@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
 
 import styles from './Header.module.css'
@@ -6,16 +7,18 @@ import logoutIcon from '../assets/images/logout_icon.png'
 import Avatar from './Avatar'
 
 export default function Header() {
+    const { authedUser, users } = useSelector((state) => {
+        return {
+            authedUser: state.authedUser,
+            users: state.users
+        }
+    })
+
     const navLinks = [
         { label: 'Home', path: '/', color: '#00B21D' },
         { label: 'New Question', path: '/add', color: '#FFC700' },
         { label: 'Leaderboard', path: '/leaderboard', color: '#FF0000' },
     ]
-
-    const authedUser = {
-        name: 'Susan Brown',
-        avatarURL: 'https://image.freepik.com/free-photo/young-beautiful-female-pointing-up-casual-outfit-looking-happy-front-view_176474-105886.jpg'
-    }
 
     return (
         <div className={styles['container']}>
@@ -43,7 +46,7 @@ export default function Header() {
                 {authedUser && (
                     <div className={styles['profile']}>
                         <Avatar
-                            url={authedUser.avatarURL}
+                            url={users[authedUser].avatarURL}
                             diameter='40px' />
                         <span className={styles['profile-name']}>{authedUser.name}</span>
                         <Link

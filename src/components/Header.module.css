@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    height: 50px;
+    border-bottom: 1px solid #8F8F8F;
+    box-shadow: 0px 2px #E4E4E4;
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    flex-basis: 80%
+}
+
+.logo {
+    justify-content: flex-start;
+    align-items: center;
+    flex-basis: 30%;
+}
+
+.nav-links {
+    display: flex;
+    gap: 5%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-basis: 40%;
+}
+
+.nav-link {
+    font-family: sans-serif;
+    color: #000;
+    text-decoration: none;
+    padding-bottom: 10px;
+}
+
+.profile {
+    display: flex;
+    gap: 3%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-basis: 30%;
+}
+
+.profile-name {
+    font-family: sans-serif;
+}
+
+.logout-button {
+    margin-left: 5%;
+}

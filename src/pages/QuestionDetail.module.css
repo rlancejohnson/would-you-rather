@@ -1,0 +1,70 @@
+.grid {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.grid-vertical {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.grid-gap-small {
+    gap: 20px;
+}
+
+.grid-gap-large {
+    gap: 50px;
+}
+
+.content-area {
+    flex-basis: 80%;
+    font-family: sans-serif;
+}
+
+.title {
+    margin-top: 80px;
+    font-size: 1.5rem;
+    align-items: center;
+}
+
+.template-text {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 80px 0px 30px 0px;
+}
+
+.form {
+    font-family: sans-serif;
+    background-color: #E5E5E5;
+    position: absolute;
+    border-radius: 20px 20px 0px 0px;
+    margin-top: 150px;
+    width: 75vw;
+    height: 75vh;
+}
+
+.option-btn {
+    background: #fff;
+    border-radius: 10px;
+    padding: 50px 100px 50px 100px;
+}
+
+.option-btn:hover {
+    border: 2px solid #0075FF;
+}
+
+.option-btn-disabled {
+    background: #fff;
+    border-radius: 10px;
+    padding: 50px 100px 50px 100px;
+    pointer-events: none;
+}
+
+.option-btn-selected {
+    background: #fff;
+    border-radius: 10px;
+    padding: 50px 100px 50px 100px;
+    border: 2px solid #00B21D;
+}

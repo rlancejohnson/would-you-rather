@@ -23,7 +23,9 @@ export default function QuestionDetail() {
     const [selectedOption, setSelectedOption] = useState('')
 
     useEffect(() => {
-        setSelectedOption(users && authedUser && id ? users[authedUser]?.answers[id] : '')
+        if (users[authedUser]?.answers[id]) {
+            setSelectedOption(users[authedUser].answers[id])
+        }
 
         if (!questions[id]) {
             setTimeout(() => {
@@ -33,7 +35,7 @@ export default function QuestionDetail() {
     }, [navigate, setSelectedOption, users, authedUser, id, questions])
 
     const handleSelection = (e) => {
-        if (selectedOption === null) {
+        if (!selectedOption) {
             const answer = e.target.id
             setSelectedOption(answer)
             dispatch(handleAddAnswer(id, answer))

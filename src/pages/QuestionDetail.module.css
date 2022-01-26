@@ -37,7 +37,7 @@
 
 .form {
     font-family: sans-serif;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     position: absolute;
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
@@ -52,7 +52,7 @@
 }
 
 .option-btn:hover {
-    border: 2px solid #0075FF;
+    border: 2px solid #0075ff;
 }
 
 .option-btn-disabled {
@@ -66,12 +66,12 @@
     background: #fff;
     border-radius: 10px;
     padding: 50px 75px;
-    border: 2px solid #00B21D;
+    border: 2px solid #00b21d;
 }
 
 .stats-badge {
     margin-top: -10px;
-    background: #FFC700;
+    background: #fcc700;
     border-radius: 10px;
     padding: 20px 50px;
     font-weight: bold;

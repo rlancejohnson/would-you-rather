@@ -17,7 +17,7 @@
 
 .form {
     font-family: sans-serif;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     position: absolute;
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
@@ -35,7 +35,7 @@
 }
 
 .option-input {
-    border: 2px solid #B7B7B7;
+    border: 2px solid #b7b7b7;
     border-radius: 10px;
     padding: 5px;
     font-size: 20px;
@@ -43,7 +43,7 @@
 }
 
 .submit-btn {
-    background: #0075FF;
+    background: #0075ff;
     border-radius: 10px;
     border: none;
     font-family: sans-serif;

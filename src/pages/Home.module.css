@@ -26,7 +26,7 @@
 
 .active-tab {
     padding-bottom: 10px;
-    border-bottom: 3px solid #00B21D;
+    border-bottom: 3px solid #00b21d;
 }
 
 .template-text {
@@ -36,7 +36,7 @@
 
 .form {
     font-family: sans-serif;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     position: absolute;
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
@@ -57,13 +57,13 @@
 .question-details {
     margin: 0px 20px;
     padding: 0px 30px;
-    border-left: 2px solid #8F8F8F;
+    border-left: 2px solid #8f8f8f;
     align-items: flex-start;
     width: 50%
 }
 
 .answer-btn {
-    background: #00B21D;
+    background: #00b21d;
     border-radius: 10px;
     color: #fff;
     border: none;
@@ -72,7 +72,7 @@
 }
 
 .view-results-btn {
-    background: #FFC700;
+    background: #ffc700;
     border-radius: 10px;
     color: #fff;
     border: none;

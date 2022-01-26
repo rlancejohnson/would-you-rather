@@ -27,7 +27,7 @@
 
 .form {
     font-family: sans-serif;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     position: absolute;
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
@@ -52,12 +52,12 @@
 .score-details {
     margin: 0px 10px;
     padding: 0px 20px;
-    border-left: 2px solid #8F8F8F;
+    border-left: 2px solid #8f8f8f;
     align-items: flex-start;
 }
 
 .score-badge {
-    background: #FF0000;
+    background: #ff0000;
     border-radius: 10px;
     padding: 10px 20px;
 }

@@ -15,7 +15,7 @@ export default function RequireAuth({ children }) {
         if (cachedAuthedUser !== null) {
             dispatch(setAuthedUser(cachedAuthedUser))
         }
-    })
+    }, [dispatch, cachedAuthedUser])
 
     if (!authedUser) {
         return (

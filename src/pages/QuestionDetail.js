@@ -11,14 +11,16 @@ import Avatar from '../components/Avatar'
 export default function QuestionDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const [selectedOption, setSelectedOption] = useState(null)
     const dispatch = useDispatch()
-    const { question, users } = useSelector(state => {
+    const { authedUser, users, question } = useSelector(state => {
         return {
-            question: id in state['questions'] ? state['questions'][id] : '',
-            users: state.users
+            authedUser: state.authedUser,
+            users: state.users,
+            question: id in state['questions'] ? state['questions'][id] : ''
         }
     })
+
+    const [selectedOption, setSelectedOption] = useState(users[authedUser]['answers'][question.id])
 
     useEffect(() => {
         if (!question) {

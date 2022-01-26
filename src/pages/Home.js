@@ -37,63 +37,74 @@ export default function Home() {
                 </div>
                 {activeTab === 1 &&
                     <div className={getClasses(styles, ['grid-vertical', 'content-area', 'form'])}>
-                        {(questions && users[authedUser]?.answers) && Object.keys(questions).filter(qid => !(qid in users[authedUser].answers)).map(qid => (
-                            <div
-                                key={qid}
-                                className={getClasses(styles, ['grid', 'grid-gap-small', 'question-card'])}>
-                                <div>
-                                    <Avatar
-                                        url={users[questions[qid].author].avatarURL}
-                                        diameter={75}
-                                    />
+                        {(questions && users[authedUser]?.answers) &&
+                            Object.keys(questions).filter(qid => {
+                                return !(qid in users[authedUser].answers)
+
+                            }).sort((a, b) => {
+                                return questions[b].timestamp - questions[a].timestamp
+
+                            }).map(qid => (
+                                <div
+                                    key={qid}
+                                    className={getClasses(styles, ['grid', 'grid-gap-small', 'question-card'])}>
+                                    <div>
+                                        <Avatar
+                                            url={users[questions[qid].author].avatarURL}
+                                            diameter={75}
+                                        />
+                                    </div>
+                                    <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
+                                        <div>{`${users[authedUser].name} asks:`}</div>
+                                        <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
+                                        <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
+                                    </div>
+                                    <div className={getClasses(styles, ['grid-vertical'])}>
+                                        <Link to={`question/${qid}`}>
+                                            <button className={getClasses(styles, ['answer-btn'])}>Answer</button>
+                                        </Link>
+                                    </div>
                                 </div>
-                                <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
-                                    <div>{`${users[authedUser].name} asks:`}</div>
-                                    <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
-                                    <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
-                                </div>
-                                <div className={getClasses(styles, ['grid-vertical'])}>
-                                    <Link to={`question/${qid}`}>
-                                        <button className={getClasses(styles, ['answer-btn'])}>Answer</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
                 }
                 {activeTab === 2 &&
                     <div className={getClasses(styles, ['grid-vertical', 'content-area', 'form'])}>
-                        {users[authedUser]?.answers && Object.keys(users[authedUser].answers).map(qid => (
-                            <div
-                                key={qid}
-                                className={getClasses(styles, ['grid', 'grid-gap-small', 'question-card'])}>
-                                <div>
-                                    <Avatar
-                                        url={users[questions[qid].author].avatarURL}
-                                        diameter={75}
-                                    />
-                                </div>
-                                <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
-                                    <div>{`${users[authedUser].name} asks:`}</div>
-                                    <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
-                                    <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
-                                    <div className={getClasses(styles, ['vote-text'])}>
-                                        {`You Chose: ${questions[qid][users[authedUser].answers[qid]].text}`}
+                        {users[authedUser]?.answers &&
+                            Object.keys(users[authedUser].answers).sort((a, b) => {
+                                return questions[b].timestamp - questions[a].timestamp
+
+                            }).map(qid => (
+                                <div
+                                    key={qid}
+                                    className={getClasses(styles, ['grid', 'grid-gap-small', 'question-card'])}>
+                                    <div>
+                                        <Avatar
+                                            url={users[questions[qid].author].avatarURL}
+                                            diameter={75}
+                                        />
                                     </div>
-                                </div>
-                                <div className={getClasses(styles, ['grid-vertical'])}>
+                                    <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
+                                        <div>{`${users[authedUser].name} asks:`}</div>
+                                        <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
+                                        <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
+                                        <div className={getClasses(styles, ['vote-text'])}>
+                                            {`You Chose: ${questions[qid][users[authedUser].answers[qid]].text}`}
+                                        </div>
+                                    </div>
+                                    <div className={getClasses(styles, ['grid-vertical'])}>
+                                        <div className={getClasses(styles, ['grid-vertical'])}>
+
+                                            <Link to={`question/${qid}`}>
+                                                <button className={getClasses(styles, ['view-results-btn'])}>View Results</button>
+                                            </Link>
+                                        </div>
+                                    </div>
                                     <div className={getClasses(styles, ['grid-vertical'])}>
 
-                                        <Link to={`question/${qid}`}>
-                                            <button className={getClasses(styles, ['view-results-btn'])}>View Results</button>
-                                        </Link>
                                     </div>
                                 </div>
-                                <div className={getClasses(styles, ['grid-vertical'])}>
-
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
                 }
             </div>

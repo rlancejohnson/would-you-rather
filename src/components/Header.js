@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Link } from 'react-router-dom'
+
+import { setAuthedUser } from '../actions/authedUser'
 
 import styles from './Header.module.css'
 import logo from '../assets/images/logo_small.png'
@@ -7,6 +9,7 @@ import logoutIcon from '../assets/images/logout_icon.png'
 import Avatar from './Avatar'
 
 export default function Header() {
+    const dispatch = useDispatch()
     const { authedUser, users } = useSelector((state) => {
         return {
             authedUser: state.authedUser,
@@ -19,6 +22,10 @@ export default function Header() {
         { label: 'New Question', path: '/add', color: '#FFC700' },
         { label: 'Leaderboard', path: '/leaderboard', color: '#FF0000' },
     ]
+
+    const handleLogout = () => {
+        dispatch(setAuthedUser(null))
+    }
 
     return (
         <div className={styles['container']}>
@@ -51,7 +58,8 @@ export default function Header() {
                         <span className={styles['profile-name']}>{authedUser.name}</span>
                         <Link
                             to='/login'
-                            className={styles['logout-button']}>
+                            className={styles['logout-button']}
+                            onClick={handleLogout}>
                             <img
                                 src={logoutIcon}
                                 alt='logout'

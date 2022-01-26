@@ -1,30 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, Link } from 'react-router-dom'
-
-import { setAuthedUser } from '../actions/authedUser'
-
-import styles from './Header.module.css'
-import logo from '../assets/images/logo_small.png'
-import logoutIcon from '../assets/images/logout_icon.png'
-import Avatar from './Avatar'
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
+import { setAuthedUser } from '../actions/authedUser';
+import styles from './Header.module.css';
+import logo from '../assets/images/logo_small.png';
+import logoutIcon from '../assets/images/logout_icon.png';
+import Avatar from './Avatar';
 
 export default function Header() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const { authedUser, users } = useSelector((state) => {
         return {
             authedUser: state.authedUser,
             users: state.users
-        }
-    })
+        };
+    });
 
     const navLinks = [
         { label: 'Home', path: '/', color: '#00B21D' },
         { label: 'New Question', path: '/add', color: '#FFC700' },
         { label: 'Leaderboard', path: '/leaderboard', color: '#FF0000' },
-    ]
+    ];
 
     const handleLogout = () => {
-        dispatch(setAuthedUser(null))
+        dispatch(setAuthedUser(null));
     }
 
     return (
@@ -69,5 +67,5 @@ export default function Header() {
                 )}
             </div>
         </div>
-    )
+    );
 }

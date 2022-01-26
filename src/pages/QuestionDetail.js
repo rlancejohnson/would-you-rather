@@ -1,46 +1,44 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
-
-import { handleAddAnswer } from '../actions/questions'
-import { getClasses } from '../services/utils'
-
-import styles from './QuestionDetail.module.css'
-import Avatar from '../components/Avatar'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { handleAddAnswer } from '../actions/questions';
+import { getClasses } from '../services/utils';
+import styles from './QuestionDetail.module.css';
+import Avatar from '../components/Avatar';
 
 export default function QuestionDetail() {
-    const { id } = useParams()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { authedUser, users, questions } = useSelector(state => {
         return {
             authedUser: state.authedUser,
             users: state.users,
             questions: state.questions
-        }
-    })
+        };
+    });
 
-    const [selectedOption, setSelectedOption] = useState('')
+    const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
         if (users[authedUser]?.answers[id]) {
-            setSelectedOption(users[authedUser].answers[id])
+            setSelectedOption(users[authedUser].answers[id]);
         }
 
         if (!questions[id]) {
             setTimeout(() => {
-                navigate('/')
+                navigate('/');
             }, 3000)
         }
     }, [navigate, setSelectedOption, users, authedUser, id, questions])
 
     const handleSelection = (e) => {
         if (!selectedOption) {
-            const answer = e.target.id
-            setSelectedOption(answer)
-            dispatch(handleAddAnswer(id, answer))
+            const answer = e.target.id;
+            setSelectedOption(answer);
+            dispatch(handleAddAnswer(id, answer));
         }
-    }
+    };
 
     if (!questions[id]) {
         return (
@@ -48,7 +46,7 @@ export default function QuestionDetail() {
                 <div>We were unable to find your question in our filing cabinet.</div>
                 <div>Please try selecting another question.</div>
             </div>
-        )
+        );
     }
 
     return (
@@ -99,5 +97,5 @@ export default function QuestionDetail() {
                 </div>
             </div>
         </div >
-    )
+    );
 }

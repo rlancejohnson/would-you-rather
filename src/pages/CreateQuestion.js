@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-
-import { handleAddQuestion } from '../actions/questions'
-
-import styles from './CreateQuestion.module.css'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { handleAddQuestion } from '../actions/questions';
+import styles from './CreateQuestion.module.css';
 
 export default function CreateQuestion() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [options, setOptions] = useState({
         optionOneText: '',
         optionTwoText: ''
-    })
+    });
 
     const handleChange = (e) => {
         setOptions({
             ...options,
             [e.target.id]: e.target.value
-        })
+        });
     }
 
     const handleSubmit = () => {
-        const { optionOneText, optionTwoText } = options
-        dispatch(handleAddQuestion(optionOneText, optionTwoText))
+        const { optionOneText, optionTwoText } = options;
+        dispatch(handleAddQuestion(optionOneText, optionTwoText));
         setOptions({
             optionOneText: '',
             optionTwoText: ''
-        })
-        navigate('/')
+        });
+        navigate('/');
     }
 
     return (
@@ -64,5 +62,5 @@ export default function CreateQuestion() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

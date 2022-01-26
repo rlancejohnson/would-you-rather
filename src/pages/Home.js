@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { getClasses } from '../services/utils'
-import styles from './Home.module.css'
-import Avatar from '../components/Avatar'
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getClasses } from '../services/utils';
+import styles from './Home.module.css';
+import Avatar from '../components/Avatar';
 
 export default function Home() {
     const { authedUser, users, questions } = useSelector(state => {
@@ -11,13 +11,13 @@ export default function Home() {
             authedUser: state.authedUser,
             users: state.users,
             questions: state.questions
-        }
-    })
+        };
+    });
 
-    const [activeTab, setActiveTab] = useState(1)
+    const [activeTab, setActiveTab] = useState(1);
 
     const handleTabChange = (e) => {
-        setActiveTab(parseInt(e.target.id))
+        setActiveTab(parseInt(e.target.id));
     }
 
     return (
@@ -109,5 +109,5 @@ export default function Home() {
                 }
             </div>
         </div >
-    )
+    );
 }

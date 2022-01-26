@@ -1,8 +1,7 @@
-import { useSelector } from 'react-redux'
-
-import { getClasses } from '../services/utils'
-import styles from './Leaderboard.module.css'
-import Avatar from '../components/Avatar'
+import { useSelector } from 'react-redux';
+import { getClasses } from '../services/utils';
+import styles from './Leaderboard.module.css';
+import Avatar from '../components/Avatar';
 
 export default function Leaderboard() {
     const { users, sortedUserIds } = useSelector(state => {
@@ -14,8 +13,8 @@ export default function Leaderboard() {
 
                 return b_score - a_score
             })
-        }
-    })
+        };
+    });
 
     return (
         <div className={getClasses(styles, ['grid-vertical'])}>
@@ -53,5 +52,5 @@ export default function Leaderboard() {
 
             </div>
         </div>
-    )
+    );
 }

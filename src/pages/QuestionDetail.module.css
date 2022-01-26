@@ -32,7 +32,7 @@
 .template-text {
     font-weight: bold;
     font-size: 24px;
-    margin: 80px 0px 30px 0px;
+    margin: 75px 0px 30px 0px;
 }
 
 .form {
@@ -42,7 +42,7 @@
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
     width: 75vw;
-    height: 80vh;
+    height: 77vh;
 }
 
 .option-btn {

@@ -32,8 +32,9 @@
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
     width: 75vw;
-    height: 80vh;
+    height: 75vh;
     padding: 20px 0px 0px 0px;
+    overflow-y: scroll;
 }
 
 .username {

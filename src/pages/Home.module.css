@@ -6,7 +6,7 @@
 
 .grid-vertical {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column;
     align-items: center;
 }
 
@@ -41,7 +41,8 @@
     border-radius: 20px 20px 0px 0px;
     margin-top: 150px;
     width: 75vw;
-    height: 80vh;
+    height: 77vh;
+    overflow-y: scroll;
 }
 
 .question-card {
@@ -50,7 +51,7 @@
     border-radius: 10px;
     padding: 20px 50px;
     width: 70%;
-    margin: 20px 20px 0px 20px;
+    margin: 15px;
 }
 
 .question-details {

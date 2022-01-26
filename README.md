@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Would You Rather?
+This would you rather game closely follows the traditional Would You Rather card game with some twists. With your scores saved and the ability to add your own questions this Would You Rather spin-off will keep you and your family laughing for hours as you compete for the high score. The more questions you ask, the more questions you answer, the more likely you are to stand out above the rest.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Prerequisites
+#### MacOS
+1. Install [Homebrew](https://brew.sh/) by running `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` in the terminal.
+1. Check that it was installed by running `brew --version`. You should see the version number that was installed.
+1. Run `brew install node`.
+1. Run `node --version`.
+1. Check that `npm` was installed as well by running `npm --version`.
+1. Run `brew install yarn`.
+1. Run `npm --version`.
+1. Run `yarn install && yarn --version`
 
-## Available Scripts
+#### Windows
+1. Please download the [Node.js Installer](https://nodejs.org/en/download/), go through the installation process, and restart your computer once you're done.
+1. Please follow the `yarn` [installation instructions](https://classic.yarnpkg.com/en/docs/install#debian-stable).
+1. Run `yarn --version` to make sure `yarn` has been successfully installed.
 
-In the project directory, you can run:
+#### Linux
+1. Please follow [these instructions](https://ostechnix.com/install-node-js-linux/) to install Node.js.
+1. Run `sudo apt-get install -y build-essential`.
+1. Please follow the `yarn` [installation instructions](https://classic.yarnpkg.com/en/docs/install#debian-stable).
+1. Run `yarn --version` to make sure `yarn` has been successfully installed.
 
-### `npm start`
+## How to Install
+1. Clone this repo.
+1. Run `npm install` in the main folder of the repo.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to Use
+1. Run `npm start` in the main folder of the repo.
+1. Select an existing user to login as.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    ![Login Page](./Public/login_page.png)
 
-### `npm test`
+1. Answer and view the stats for questions you and others have created from the home page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    ![Home Page](./Public/home_unanswered_page.png)
+    ![Home Page](./Public/home_answered_page.png)
 
-### `npm run build`
+1. Answer a question by clicking on the Answer button for a question on the unanswered questions tab of the home page.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ![Question Vote Page](./Public/question_vote_page.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. See the stats for questions you have answered by clicking on the View Results button for a question on the answered questions tab of the home page.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ![Question Results Page](./Public/question_results_page.png)
 
-### `npm run eject`
+1. Create new questions by clicking on the New Question navigation link in the header.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ![Create New Question Page](./Public/create_new_question_page.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Keep an eye on the competition from the leaderboard by click on the navigation link in the header.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ![Leaderboard Page](./Public/leaderboard_page.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Logout using the logout icon in the top right corner of the header
 
-## Learn More
+    ![Logout Icon](./src/assets/images/logout_icon.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Things to Consider
+Only a subset of data is stored, so you're new questions and answered won't survive a page refresh. That feature will be available in a future release.

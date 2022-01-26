@@ -4,38 +4,25 @@ import { ADD_QUESTION, ADD_QUESTION_ANSWER } from '../actions/questions'
 export default function questions(state = {}, action) {
     switch (action.type) {
         case SET_INITIAL_DATA:
-            const { questions } = action
-
             return {
                 ...state,
-                ...questions
+                ...action.questions
             }
 
         case ADD_QUESTION:
-            const { question } = action
-
             return {
                 ...state,
-                questions: {
-                    ...state['questions'],
-                    question
-                }
+                [action.question.id]: action.question
             }
 
         case ADD_QUESTION_ANSWER:
-            const { authedUser } = state
-            const { qid, answer } = action
-
             return {
                 ...state,
-                questions: {
-                    ...state['questions'],
-                    [qid]: {
-                        ...questions[qid],
-                        [answer]: {
-                            ...questions[qid][answer],
-                            votes: questions[qid][answer].votes.concat([authedUser])
-                        }
+                [action.qid]: {
+                    ...state[action.qid],
+                    [action.answer]: {
+                        ...state[action.qid][action.answer],
+                        votes: state[action.qid][action.answer].votes.concat([action.authedUser])
                     }
                 }
             }

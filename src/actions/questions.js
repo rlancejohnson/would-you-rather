@@ -21,15 +21,16 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
         return _saveQuestion({ optionOneText, optionTwoText, author: authedUser })
             .then((question) => {
                 dispatch(addQuestion(question))
-                dispatch(addUserQuestion(question))
+                dispatch(addUserQuestion(authedUser, question))
                 dispatch(hideLoading)
             })
     }
 }
 
-function addQuestionAnswer(qid, answer) {
+function addQuestionAnswer(authedUser, qid, answer) {
     return {
         type: ADD_QUESTION_ANSWER,
+        authedUser,
         qid,
         answer
     }
@@ -43,8 +44,8 @@ export function handleAddAnswer(qid, answer) {
 
         return _saveQuestionAnswer({ authedUser, qid, answer })
             .then(() => {
-                dispatch(addQuestionAnswer(qid, answer))
-                dispatch(addUserAnswer(qid, answer))
+                dispatch(addQuestionAnswer(authedUser, qid, answer))
+                dispatch(addUserAnswer(authedUser, qid, answer))
                 dispatch(hideLoading)
             })
     }

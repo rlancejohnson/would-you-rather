@@ -1,0 +1,53 @@
+.layout {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    gap: 30px;
+}
+
+.section {
+    flex-basis: 80%;
+}
+
+.title {
+    margin-top: 80px;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+}
+
+.form {
+    font-family: sans-serif;
+    background-color: #E5E5E5;
+    position: absolute;
+    border-radius: 20px 20px 0px 0px;
+    margin-top: 150px;
+    width: 75vw;
+    height: 75vh;
+}
+
+.template-text {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.question-header {
+    margin-top: 50px;
+}
+
+.option-input {
+    border: 2px solid #B7B7B7;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 20px;
+    min-width: 40%;
+}
+
+.submit-btn {
+    background: #0075FF;
+    border-radius: 10px;
+    border: none;
+    font-family: sans-serif;
+    color: #fff;
+    padding: 10px 50px 10px 50px;
+    font-size: 18px;
+}

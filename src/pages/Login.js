@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Dropdown } from 'react-dropdown-now'
 import 'react-dropdown-now/style.css';
 
@@ -10,9 +11,12 @@ import logo from '../assets/images/logo_large.png'
 export default function Login() {
     const dispatch = useDispatch()
     const users = useSelector((state) => state.users)
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const handleChange = ({ value }) => {
         dispatch(setAuthedUser(value))
+        navigate(location.state?.from?.pathname || '/', { replace: true })
     }
 
     return (

@@ -6,6 +6,7 @@ import { handleSetInitialData } from './actions/shared'
 
 import LoadingBar from 'react-redux-loading-bar'
 import Header from './components/Header'
+import RequireAuth from './components/RequireAuth'
 
 import Login from './pages/Login'
 import Home from './pages/Home'
@@ -15,9 +16,8 @@ import Leaderboard from './pages/Leaderboard'
 
 export default function App() {
     const dispatch = useDispatch()
-    const { authedUser, loading } = useSelector((state) => {
+    const { loading } = useSelector((state) => {
         return {
-            authedUser: state.authedUser,
             loading: state.loadingBar.default !== 0
         }
     })
@@ -32,18 +32,13 @@ export default function App() {
                 <Header />
                 <LoadingBar />
 
-                {(authedUser === null && loading === false) &&
+                {(loading === false) &&
                     <Routes>
-                        <Route path='/' element={<Login />} />
-                    </Routes>
-                }
-
-                {(authedUser !== null && loading === false) &&
-                    <Routes>
-                        <Route path='/' element={<Home />} />
-                        <Route path='/question/:id' element={<QuestionDetail />} />
-                        <Route path='/add' element={<CreateQuestion />} />
-                        <Route path='/leaderboard' element={<Leaderboard />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />
+                        <Route path='/question/:id' element={<RequireAuth><QuestionDetail /></RequireAuth>} />
+                        <Route path='/add' element={<RequireAuth><CreateQuestion /></RequireAuth>} />
+                        <Route path='/leaderboard' element={<RequireAuth><Leaderboard /></RequireAuth>} />
                     </Routes>
                 }
             </div>

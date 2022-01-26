@@ -31,28 +31,28 @@ This would you rather game closely follows the traditional Would You Rather card
 1. Run `npm start` in the main folder of the repo.
 1. Select an existing user to login as.
 
-    ![Login Page](./Public/login_page.png)
+    ![Login Page](./public/login_page.png)
 
 1. Answer and view the stats for questions you and others have created from the home page
 
-    ![Home Page](./Public/home_unanswered_page.png)
-    ![Home Page](./Public/home_answered_page.png)
+    ![Home Page](./public/home_unanswered_page.png)
+    ![Home Page](./public/home_answered_page.png)
 
 1. Answer a question by clicking on the Answer button for a question on the unanswered questions tab of the home page.
 
-    ![Question Vote Page](./Public/question_vote_page.png)
+    ![Question Vote Page](./public/question_vote_page.png)
 
 1. See the stats for questions you have answered by clicking on the View Results button for a question on the answered questions tab of the home page.
 
-    ![Question Results Page](./Public/question_results_page.png)
+    ![Question Results Page](./public/question_results_page.png)
 
 1. Create new questions by clicking on the New Question navigation link in the header.
 
-    ![Create New Question Page](./Public/create_new_question_page.png)
+    ![Create New Question Page](./public/create_new_question_page.png)
 
 1. Keep an eye on the competition from the leaderboard by click on the navigation link in the header.
 
-    ![Leaderboard Page](./Public/leaderboard_page.png)
+    ![Leaderboard Page](./public/leaderboard_page.png)
 
 1. Logout using the logout icon in the top right corner of the header
 

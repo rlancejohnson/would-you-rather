@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     flex-basis: 80%;
+    font-family: sans-serif;
 }
 
 .logo {

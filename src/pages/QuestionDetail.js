@@ -12,33 +12,35 @@ export default function QuestionDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { authedUser, users, question } = useSelector(state => {
+    const { authedUser, users, questions } = useSelector(state => {
         return {
             authedUser: state.authedUser,
             users: state.users,
-            question: id in state['questions'] ? state['questions'][id] : ''
+            questions: state.questions
         }
     })
 
-    const [selectedOption, setSelectedOption] = useState(users[authedUser]['answers'][question.id])
+    const [selectedOption, setSelectedOption] = useState('')
 
     useEffect(() => {
-        if (!question) {
+        setSelectedOption(users && authedUser && id ? users[authedUser]?.answers[id] : '')
+
+        if (!questions[id]) {
             setTimeout(() => {
                 navigate('/')
             }, 3000)
         }
-    })
+    }, [navigate, setSelectedOption, users, authedUser, id, questions])
 
     const handleSelection = (e) => {
         if (selectedOption === null) {
             const answer = e.target.id
             setSelectedOption(answer)
-            dispatch(handleAddAnswer(question.id, answer))
+            dispatch(handleAddAnswer(id, answer))
         }
     }
 
-    if (!question) {
+    if (!questions[id]) {
         return (
             <div className={getClasses(styles, ['grid-vertical', 'grid-gap-small', 'content-area', 'title'])}>
                 <div>We were unable to find your question in our filing cabinet.</div>
@@ -51,10 +53,10 @@ export default function QuestionDetail() {
         <div className={getClasses(styles, ['grid-vertical'])}>
             <div className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area', 'title'])}>
                 <Avatar
-                    url={users[question.author].avatarURL}
+                    url={users[questions[id].author].avatarURL}
                     diameter={50}
                 />
-                <span>{`${users[question.author].name} asks:`}</span>
+                <span>{`${users[questions[id].author].name} asks:`}</span>
             </div>
             <div className={getClasses(styles, ['grid-vertical', 'content-area', 'form'])}>
                 <div className={getClasses(styles, ['template-text'])}>
@@ -66,12 +68,12 @@ export default function QuestionDetail() {
                             id='optionOne'
                             className={getClasses(styles, selectedOption && selectedOption === 'optionOne' ? ['option-btn-selected'] : selectedOption ? ['option-btn-disabled'] : ['option-btn'])}
                             onClick={handleSelection}>
-                            {question.optionOne.text}
+                            {questions[id].optionOne.text}
                         </div>
                         {selectedOption &&
                             <div className={getClasses(styles, ['stats-badge', 'grid-vertical'])}>
-                                <div>{`${question.optionOne.votes.length} Friends Chose`}</div>
-                                <div>{`${parseInt((question.optionOne.votes.length / Object.keys(users).length) * 100)}%`}</div>
+                                <div>{`${questions[id].optionOne.votes.length} Friends Chose`}</div>
+                                <div>{`${parseInt((questions[id].optionOne.votes.length / Object.keys(users).length) * 100)}%`}</div>
                             </div>
                         }
                     </div>
@@ -83,12 +85,12 @@ export default function QuestionDetail() {
                             id='optionTwo'
                             className={getClasses(styles, selectedOption && selectedOption === 'optionTwo' ? ['option-btn-selected'] : selectedOption ? ['option-btn-disabled'] : ['option-btn'])}
                             onClick={handleSelection}>
-                            {question.optionTwo.text}
+                            {questions[id].optionTwo.text}
                         </div>
                         {selectedOption &&
                             <div className={getClasses(styles, ['stats-badge', 'grid-vertical'])}>
-                                <div>{`${question.optionTwo.votes.length} Friends Chose`}</div>
-                                <div>{`${parseInt((question.optionTwo.votes.length / Object.keys(users).length) * 100)}%`}</div>
+                                <div>{`${questions[id].optionTwo.votes.length} Friends Chose`}</div>
+                                <div>{`${parseInt((questions[id].optionTwo.votes.length / Object.keys(users).length) * 100)}%`}</div>
                             </div>
                         }
                     </div>

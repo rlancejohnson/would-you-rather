@@ -48,7 +48,7 @@
 .option-btn {
     background: #fff;
     border-radius: 10px;
-    padding: 50px 100px 50px 100px;
+    padding: 50px 75px;
 }
 
 .option-btn:hover {
@@ -58,14 +58,14 @@
 .option-btn-disabled {
     background: #fff;
     border-radius: 10px;
-    padding: 50px 100px 50px 100px;
+    padding: 50px 75px ;
     pointer-events: none;
 }
 
 .option-btn-selected {
     background: #fff;
     border-radius: 10px;
-    padding: 50px 100px 50px 100px;
+    padding: 50px 75px;
     border: 2px solid #00B21D;
 }
 
@@ -73,7 +73,7 @@
     margin-top: -10px;
     background: #FFC700;
     border-radius: 10px;
-    padding: 20px 50px 20px 50px;
+    padding: 20px 50px;
     font-weight: bold;
     color: #fff;
 }

@@ -55,7 +55,7 @@ export default function Header() {
                         <Avatar
                             url={users[authedUser].avatarURL}
                             diameter='40px' />
-                        <span className={styles['profile-name']}>{authedUser.name}</span>
+                        <span className={styles['profile-name']}>{users[authedUser].name}</span>
                         <Link
                             to='/login'
                             className={styles['logout-button']}

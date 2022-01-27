@@ -60,3 +60,6 @@ This would you rather game closely follows the traditional Would You Rather card
 
 ## Things to Consider
 Only a subset of data is stored, so you're new questions and answered won't survive a page refresh. That feature will be available in a future release.
+
+## Contributions
+Thanks to our friends at freepik.com for the user avatars.

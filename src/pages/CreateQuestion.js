@@ -49,6 +49,7 @@ export default function CreateQuestion() {
                         className={styles['option-input']}
                         value={options.optionOneText}
                         onChange={handleChange}
+                        required
                     />
                     <div className={styles['template-text']}>OR</div>
                     <input
@@ -57,9 +58,15 @@ export default function CreateQuestion() {
                         className={styles['option-input']}
                         value={options.optionTwoText}
                         onChange={handleChange}
+                        required
                     />
+                    <div className={styles['help-text']}>
+                        Both options are required to submit the question.
+                    </div>
                     <button
-                        className={styles['submit-btn']}
+                        className={options.optionOneText === '' || options.optionTwoText === '' ? styles['submit-btn-disabled'] : styles['submit-btn']}
+                        disabled={options.optionOneText === '' || options.optionTwoText === ''}
+                        title='Both options must be filled out to submit.'
                         onClick={handleSubmit}>
                         Submit
                     </button>

@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { handleAddQuestion } from '../actions/questions';
 import styles from './CreateQuestion.module.css';
 
+/**
+* @description Component for the create question page
+* @constructor
+*/
 export default function CreateQuestion() {
     const dispatch = useDispatch();
     const navigate = useNavigate();

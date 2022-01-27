@@ -6,6 +6,10 @@ import { setAuthedUser } from '../actions/authedUser';
 import styles from './Login.module.css';
 import logo from '../assets/images/logo_large.png';
 
+/**
+* @description Component for the login page to authenticate/impersonate a user
+* @constructor
+*/
 export default function Login() {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users);

@@ -6,6 +6,10 @@ import { getClasses } from '../services/utils';
 import styles from './QuestionDetail.module.css';
 import Avatar from '../components/Avatar';
 
+/**
+* @description Component for the question detail page to all for voting and reviewing stats
+* @constructor
+*/
 export default function QuestionDetail() {
     const { id } = useParams();
     const navigate = useNavigate();

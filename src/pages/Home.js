@@ -5,6 +5,10 @@ import { getClasses } from '../services/utils';
 import styles from './Home.module.css';
 import Avatar from '../components/Avatar';
 
+/**
+* @description Component for the home page to display unanswered and answered questions
+* @constructor
+*/
 export default function Home() {
     const { authedUser, users, questions } = useSelector(state => {
         return {

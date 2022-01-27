@@ -3,6 +3,10 @@ import { getClasses } from '../services/utils';
 import styles from './Leaderboard.module.css';
 import Avatar from '../components/Avatar';
 
+/**
+* @description Component for the leaderboard page to show user scores
+* @constructor
+*/
 export default function Leaderboard() {
     const { users, sortedUserIds } = useSelector(state => {
         return {

@@ -6,6 +6,10 @@ import logo from '../assets/images/logo_small.png';
 import logoutIcon from '../assets/images/logout_icon.png';
 import Avatar from './Avatar';
 
+/**
+* @description Component for site header
+* @constructor
+*/
 export default function Header() {
     const dispatch = useDispatch();
     const { authedUser, users } = useSelector((state) => {

@@ -1,6 +1,12 @@
 import { SET_INITIAL_DATA } from '../actions/shared';
 import { ADD_USER_QUESTION, ADD_USER_ANSWER } from '../actions/users';
 
+/**
+* @description Redux reducer to handle users state
+* @param {object} state - the users state
+* @param {object} action - the redux action for updating the users state
+* @returns {string} the users state
+*/
 export default function users(state = {}, action) {
     switch (action.type) {
         case SET_INITIAL_DATA:

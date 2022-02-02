@@ -24,3 +24,6 @@ yarn-error.log*
 
 # python
 __pycache__
+
+# django
+db.sqlite3

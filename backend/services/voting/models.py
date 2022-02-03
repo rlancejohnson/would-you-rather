@@ -9,7 +9,7 @@ class Option(models.Model):
 
 class Question(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='questions', on_delete=models.CASCADE)
     options = models.ManyToManyField(Option)
 
     def __str__(self):
@@ -25,9 +25,9 @@ class Question(models.Model):
             raise ValueError('A question must have only 2 options.')
 
 class Vote(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice = models.ForeignKey(Option, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='votes', on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name='votes', on_delete=models.CASCADE)
+    choice = models.ForeignKey(Option, related_name='votes', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.id} - {self.user.username} | {self.choice.label}'

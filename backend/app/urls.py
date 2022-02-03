@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 import services.profiles.views as profile_views
+import services.voting.views as voting_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/users/', profile_views.UserList.as_view())
+    path('api/v1/users/', profile_views.UserList.as_view()),
+    path('api/v1/questions/', voting_views.QuestionList.as_view()),
 ]

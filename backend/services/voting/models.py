@@ -10,7 +10,7 @@ class Option(models.Model):
 class Question(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='questions', on_delete=models.CASCADE)
-    options = models.ManyToManyField(Option)
+    options = models.ManyToManyField(Option, related_name='questions')
 
     def __str__(self):
         return f'{self.id} - {self.author.username} | {", ".join(str(option.label) for option in self.options.all())}'

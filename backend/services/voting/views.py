@@ -32,6 +32,7 @@ class QuestionList(APIView):
 
         return Response(questions)
 
+
 class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 

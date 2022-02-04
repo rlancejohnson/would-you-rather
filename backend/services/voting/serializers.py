@@ -2,13 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Option, Question, Vote
 
-class OptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Option
-        fields = (
-            'id',
-            'label',
-        )
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +13,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'options'
         )
         depth = 1
+        
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:

@@ -8,6 +8,7 @@ from services.voting.models import Question, Vote, Option
 class QuestionList(APIView):
     def get(self, request):
         User = get_user_model()
+        users = {user['id']: user['username'] for user in User.objects.values()}
 
         questions_query = Question.objects.all()
         questions = {question['id']: question for question in questions_query.values()}
@@ -24,7 +25,7 @@ class QuestionList(APIView):
                     **questions[question.id],
                     option_name: {
                         'text': option['label'],
-                        'votes': [question['user_id'] for question in question.votes.values()]
+                        'votes': [users[vote['user_id']] if vote['choice_id'] == option['id'] else '' for vote in question.votes.values()]
                     }
                 }
 

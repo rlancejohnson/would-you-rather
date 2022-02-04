@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', profile_views.UserList.as_view()),
     path('api/v1/questions/', voting_views.QuestionList.as_view()),
+    path('api/v1/questions/new', voting_views.QuestionViewSet.as_view({'post': 'create'})),
+    path('api/v1/votes/new', voting_views.VoteViewSet.as_view({'post': 'create'}))
 ]

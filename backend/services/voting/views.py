@@ -35,10 +35,33 @@ class QuestionList(APIView):
 class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context.update({'request': self.request})
-        return context
+    '''
+        Takes a list of option labels
+    '''
+    def create(self, request, *args, **kwargs):
+        req_option_labels = request.data
+
+        if len(req_option_labels) > 2 or len(req_option_labels) < 2:
+            raise ValueError('A question must have exactly 2 options.')
+
+        qy_options = list(Option.objects.filter(label__in=req_option_labels).values())
+        qy_option_labels = [option.get('label') for option in qy_options]
+        option_labels_to_create = [label for label in req_option_labels if label not in qy_option_labels]
+
+        if len(option_labels_to_create) > 0:
+            options_to_create = []
+
+            for label in option_labels_to_create:
+                options_to_create.append(Option.objects.create(label=label))
+
+            qy_options.extend(Option.objects.bulk_create(options_to_create))
+
+        new_question = Question.objects.create(author=request.user)
+        new_question.options.set([option['id'] for option in qy_options])
+        new_question.save()
+
+        return Response(QuestionSerializer(new_question).data)
+
 
 class VoteViewSet(viewsets.ModelViewSet):
     serializer_class = VoteSerializer

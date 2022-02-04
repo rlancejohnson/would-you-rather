@@ -45,8 +45,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
         if len(req_option_labels) > 2 or len(req_option_labels) < 2:
             raise ValueError('A question must have exactly 2 options.')
 
-        qy_options = list(Option.objects.filter(label__in=req_option_labels).values())
-        qy_option_labels = [option.get('label') for option in qy_options]
+        qy_options = list(Option.objects.filter(label__in=req_option_labels))
+        qy_option_labels = [option.label for option in qy_options]
         option_labels_to_create = [label for label in req_option_labels if label not in qy_option_labels]
 
         if len(option_labels_to_create) > 0:
@@ -55,11 +55,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
             for label in option_labels_to_create:
                 options_to_create.append(Option.objects.create(label=label))
 
-            qy_options.extend(Option.objects.bulk_create(options_to_create))
+            qy_options.extend(options_to_create)
 
         new_question = Question.objects.create(author=request.user)
-        new_question.options.set([option['id'] for option in qy_options])
-        new_question.save()
+        new_question.options.set(qy_options)
 
         return Response(QuestionSerializer(new_question).data)
 

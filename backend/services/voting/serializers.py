@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from services.voting.models import Option, Question, Vote
+from .models import Option, Question, Vote
 
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:

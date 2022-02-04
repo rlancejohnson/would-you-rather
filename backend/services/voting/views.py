@@ -26,7 +26,7 @@ class QuestionList(APIView):
                     **questions[question.id],
                     option_name: {
                         'text': option['label'],
-                        'votes': [users[vote['user_id']] if vote['choice_id'] == option['id'] else '' for vote in question.votes.values()]
+                        'votes': [users[vote['user_id']] for vote in question.votes.values() if vote['choice_id'] == option['id']]
                     }
                 }
 

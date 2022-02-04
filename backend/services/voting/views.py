@@ -66,19 +66,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class VoteViewSet(viewsets.ModelViewSet):
     serializer_class = VoteSerializer
 
-    def create(self, request, *args, **kwargs):
-        data = request.data
-        question_options = Question.objects.get(id=data['question']).options.values()
-        option = Option.objects.get(label=data['choice'])
-
-        if option is not None and option.label in [q_option['label'] for q_option in question_options]:
-            new_vote = Vote.objects.create(
-                user=request.user,
-                question_id=data['question'],
-                choice_id=option.id
-            )
-
-        else:
-            raise ValueError('The choice must match one of the options related to the question.')
-
-        return Response(VoteSerializer(new_vote).data)
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({'request': self.request})
+        return context

@@ -120,14 +120,16 @@ function generateUID() {
 }
 
 export function _getUsers() {
-    return new Promise((res, rej) => {
-        setTimeout(() => res({ ...users }), 1000)
+    return new Promise((resolve) => {
+        fetch('http://localhost:8000/api/v1/users/')
+            .then((response) => resolve(response.json()))
     })
 }
 
 export function _getQuestions() {
-    return new Promise((res, rej) => {
-        setTimeout(() => res({ ...questions }), 1000)
+    return new Promise((resolve) => {
+        fetch('http://localhost:8000/api/v1/questions/')
+            .then((response) => resolve(response.json()))
     })
 }
 

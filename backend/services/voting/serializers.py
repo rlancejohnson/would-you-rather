@@ -81,16 +81,15 @@ class VoteSerializer(serializers.ModelSerializer):
             'choice',
         )
 
-    def create(self, validated_data):
+    def create(self, vote):
         user = self.context['request'].user
-        question = validated_data['question']
-        question_options = question.options.values()
-        choice = validated_data['choice']
-        vote = Vote.objects.filter(user=user, question=question)
+        question = vote['question']
+        choice = vote['choice']
+        vote = Vote.objects.filter(voter = user, question = question)
 
-        if len(vote) == 0 and choice.label in [q_option['label'] for q_option in question_options]:
+        if len(vote) == 0 and choice.label in [question.option_one.label, question.option_two.label]:
             new_vote = Vote.objects.create(
-                user = user,
+                voter = user,
                 question = question,
                 choice = choice
             )

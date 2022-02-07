@@ -1,8 +1,5 @@
-from rest_framework.views import APIView
 from rest_framework import viewsets
-from rest_framework.response import Response
-from django.contrib.auth import get_user_model
-from .models import Question, Option, Vote
+from .models import Question
 from .serializers import CreateQuestionSerializer, GetQuestionSerializer, VoteSerializer
 
 

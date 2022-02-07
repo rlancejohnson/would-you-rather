@@ -1,5 +1,6 @@
+from typing import Dict
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from services.utils.serializers import DictSerializer
 from .models import Option, Question, Vote
 
 
@@ -11,6 +12,7 @@ class GetQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
+        list_serializer_class = DictSerializer
         fields = (
             'id',
             'author',
@@ -26,14 +28,12 @@ class GetQuestionSerializer(serializers.ModelSerializer):
         return int(question.created_date.timestamp())
 
     def get_optionOne(self, question):
-        print(self)
         return {
             'text': question.option_one.label,
             'votes': [vote.voter.username for vote in question.votes.all() if vote.choice == question.option_one]
         }
 
     def get_optionTwo(self, question):
-        print(self)
         return {
             'text': question.option_two.label,
             'votes': [vote.voter.username for vote in question.votes.all() if vote.choice == question.option_two]
@@ -70,7 +70,6 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
         new_question = Question.objects.create(author = user, option_one = options[question['option_one']], option_two = options[question['option_two']])
 
         return new_question
-
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:

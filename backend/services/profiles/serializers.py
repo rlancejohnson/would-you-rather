@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from services.utils.serializers import DictSerializer
 
 
 class GetUserSerializer(serializers.ModelSerializer):
@@ -11,6 +12,7 @@ class GetUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
+        list_serializer_class = DictSerializer
         fields = (
             'id',
             'name',

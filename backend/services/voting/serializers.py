@@ -4,16 +4,40 @@ from .models import Option, Question, Vote
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
+    timestamp = serializers.SerializerMethodField()
+    optionOne = serializers.SerializerMethodField()
+    optionTwo = serializers.SerializerMethodField()
+
     class Meta:
         model = Question
         fields = (
             'id',
-            'author_id',
-            'created_date',
-            'options'
+            'author',
+            'timestamp',
+            'optionOne',
+            'optionTwo'
         )
-        depth = 1
-        
+
+    def get_author(self, question):
+        return question.author.username
+
+    def get_timestamp(self, question):
+        return int(question.created_date.timestamp())
+
+    def get_optionOne(self, question):
+        print(self)
+        return {
+            'text': question.option_one.label,
+            'votes': [vote.voter.username for vote in question.votes.all() if vote.choice == question.option_one]
+        }
+
+    def get_optionTwo(self, question):
+        print(self)
+        return {
+            'text': question.option_two.label,
+            'votes': [vote.voter.username for vote in question.votes.all() if vote.choice == question.option_two]
+        }
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:

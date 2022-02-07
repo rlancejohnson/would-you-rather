@@ -5,44 +5,6 @@ from django.contrib.auth import get_user_model
 from services.voting.models import Question, Vote, Option
 from .serializers import UserSerializer
 
-
-class UserList(APIView):
-    def get(self, request):
-        User = get_user_model()
-
-        users_query = User.objects.all()
-        user_ids = {}
-        users = {}
-
-        for user in users_query:
-            user_ids[user.id] = user.username
-
-            users[user.username] = {
-                'id': user.username,
-                'name': f"{user.first_name} {user.last_name}",
-                'avatarURL': user.avatar_url,
-                'questions': [question.id for question in user.questions.all()],
-                'answers': {}
-            }
-
-        # questions = Question.objects.filter(author__in=user_ids.keys()).values()
-
-        # for question in questions:
-        #     users[user_ids[question['author_id']]]['questions'].append(question['id'])
-
-        # votes = Vote.objects.filter(user__in=user_ids.keys()).values()
-        # choices = {option['id']: option['label'] for option in Option.objects.filter(id__in=[vote['choice_id'] for vote in votes]).values()}
-
-        # for vote in votes:
-        #         users[user_ids[vote['user_id']]] = {
-        #             **users[user_ids[vote['user_id']]],
-        #             'answers': {
-        #                 **users[user_ids[vote['user_id']]]['answers'],
-        #                 vote['question_id']: choices[vote['choice_id']]
-        #             }
-        #         }
-
-        return Response(users)
-
 class UserViewSet(viewsets.ModelViewSet):
+    queryset = get_user_model().objects.all()
     serializer_class = UserSerializer

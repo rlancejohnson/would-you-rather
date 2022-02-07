@@ -26,9 +26,9 @@ class Question(models.Model):
             raise ValueError('The two options related to a question must be different.')
 
 class Vote(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='votes', on_delete=models.CASCADE)
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='votes', on_delete=models.CASCADE)
     question = models.ForeignKey(Question, related_name='votes', on_delete=models.CASCADE)
     choice = models.ForeignKey(Option, related_name='votes', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.id} - {self.user.username} | {self.choice.label}'
+        return f'{self.id} - {self.voter.username} | {self.choice.label}'

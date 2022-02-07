@@ -14,7 +14,7 @@ class Question(models.Model):
     option_two = models.ForeignKey(Option, related_name='second_options', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.id} - {self.author.username} | {", ".join(str(option.label) for option in self.options.all())}'
+        return f'{self.id} - {self.author.username} | {self.option_one.label}, {self.option_two.label}'
 
     def save(self, *args, **kwargs):
         instance = super(Question, self).save(*args, **kwargs)
@@ -22,8 +22,8 @@ class Question(models.Model):
         return instance
 
     def validate_options(self):
-        if len(self.options.all()) > 2:
-            raise ValueError('A question must have only 2 options.')
+        if self.option_one == self.option_two:
+            raise ValueError('The two options related to a question must be different.')
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='votes', on_delete=models.CASCADE)

@@ -1,4 +1,6 @@
-from django.db import models, transaction
+from django.db import models
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 from django.conf import settings
 
 class Option(models.Model):
@@ -16,14 +18,17 @@ class Question(models.Model):
     def __str__(self):
         return f'{self.id} - {self.author.username} | {self.option_one.label}, {self.option_two.label}'
 
-    def save(self, *args, **kwargs):
-        instance = super(Question, self).save(*args, **kwargs)
-        transaction.on_commit(self.validate_options)
-        return instance
+    def clean(self):
+        question_options = [f'{question.option_one.id}{question.option_two.id}' for question in Question.objects.filter(
+            Q(option_one = self.option_one, option_two = self.option_two) | Q(option_one = self.option_two, option_two = self.option_one)
+        )]
 
-    def validate_options(self):
         if self.option_one == self.option_two:
-            raise ValueError('The two options related to a question must be different.')
+            raise ValidationError('The two options related to a question must be different.')
+
+        elif f'{self.option_one.id}{self.option_two.id}' in question_options or f'{self.option_two.id}{self.option_one.id}' in question_options:
+            raise ValidationError('This question already exists.')
+
 
 class Vote(models.Model):
     voter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='votes', on_delete=models.CASCADE)

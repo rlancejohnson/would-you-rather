@@ -40,7 +40,7 @@ class GetQuestionSerializer(serializers.ModelSerializer):
             'votes': [vote.voter.username for vote in question.votes.all() if vote.choice == question.option_two]
         }
 
-class CreateQuestionSerializer(serializers.ModelSerializer):
+class CreateQuestionSerializer(serializers.Serializer):
     optionOne = serializers.CharField(max_length = 500, source='option_one')
     optionTwo = serializers.CharField(max_length = 500, source='option_two')
 
@@ -51,32 +51,6 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
             'optionOne',
             'optionTwo'
         )
-
-    def create(self, question):
-        user = self.context['request'].user
-        question_keys = [f'{question.option_one.label}{question.option_two.label}' for question in Question.objects.filter(
-            Q(option_one__label = question['option_one'], option_two__label = question['option_two']) | Q(option_one__label = question['option_two'], option_two__label = question['option_one'])
-        )]
-
-        if question['option_one'] == question['option_two']:
-            raise ValidationError('Option one and two cannot be the same.')
-
-        elif f"{question['option_one']}{question['option_two']}" in question_keys or f"{question['option_two']}{question['option_one']}" in question_keys:
-            raise ValidationError('This question already exists.')
-
-        req_option_labels = [question['option_one'], question['option_two']]
-
-        options = {option.label: option for option in Option.objects.filter(label__in=req_option_labels)}
-        qy_option_labels = [option.label for option in options.values()]
-        option_labels_to_create = [label for label in req_option_labels if label not in qy_option_labels]
-
-        if len(option_labels_to_create) > 0:
-            for label in option_labels_to_create:
-                options[label] = Option.objects.create(label = label)
-
-        new_question = Question.objects.create(author = user, option_one = options[question['option_one']], option_two = options[question['option_two']])
-
-        return new_question
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:

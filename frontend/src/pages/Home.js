@@ -59,7 +59,7 @@ export default function Home() {
                                         />
                                     </div>
                                     <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
-                                        <div>{`${users[authedUser].name} asks:`}</div>
+                                        <div>{`${users[questions[qid].author].name} asks:`}</div>
                                         <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
                                         <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
                                     </div>
@@ -89,7 +89,7 @@ export default function Home() {
                                         />
                                     </div>
                                     <div className={getClasses(styles, ['grid-vertical', 'question-details'])}>
-                                        <div>{`${users[authedUser].name} asks:`}</div>
+                                        <div>{`${users[questions[qid].author].name} asks:`}</div>
                                         <div className={getClasses(styles, ['template-text'])}>Would you rather...</div>
                                         <div>{`${questions[qid].optionOne.text} OR ${questions[qid].optionTwo.text}`}</div>
                                         <div className={getClasses(styles, ['vote-text'])}>

@@ -16,16 +16,26 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
-import services.profiles.views as profile_views
-import services.voting.views as voting_views
+from services.profiles.views import (
+    UserViewSet
+)
+from services.voting.views import (
+    QuestionViewSet,
+    VoteViewSet
+)
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'questions', QuestionViewSet)
+router.register(r'votes', VoteViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/users/', profile_views.UserViewSet.as_view({'get': 'list'})),
-    path('api/v1/user/', profile_views.UserViewSet.as_view({'post': 'create'})),
-    path('api/v1/questions/', voting_views.QuestionViewSet.as_view({'get': 'list'})),
-    path('api/v1/question/', voting_views.QuestionViewSet.as_view({'post': 'create'})),
-    path('api/v1/vote/', voting_views.VoteViewSet.as_view({'post': 'create'}))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('api/v1/', include(router.urls)),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

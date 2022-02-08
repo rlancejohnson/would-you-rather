@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from django.db.models import Q
 from django.core.exceptions import ValidationError
-from .models import Question, Option
+from .models import Question, Option, Vote
 from .serializers import CreateQuestionSerializer, GetQuestionSerializer, VoteSerializer
 
 
@@ -48,6 +48,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
 
 class VoteViewSet(viewsets.ModelViewSet):
+    queryset = Vote.objects.all()
     serializer_class = VoteSerializer
 
     def get_serializer_context(self):

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from services.utils.serializers import DictSerializer
+from services.voting.models import Question
 
 
 class GetUserSerializer(serializers.ModelSerializer):
@@ -31,15 +32,15 @@ class GetUserSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.build_absolute_uri(user.avatar.url)
 
-    def get_questions(self, instance):
-        return [question['id'] for question in instance.questions.values()]
+    def get_questions(self, user):
+        return [question['id'] for question in user.questions.values()]
 
-    def get_answers(self, instance):
-        questions = {question['id']: question for question in instance.questions.values()}
-        return {vote.question.id: 'optionOne' if questions[vote.question.id]['option_one_id'] == vote.choice.id else 'optionTwo' for vote in instance.votes.all()}
+    def get_answers(self, user):
+        questions = {question['id']: question for question in Question.objects.values()}
+        return {vote.question.id: 'optionOne' if questions[vote.question.id]['option_one_id'] == vote.choice.id else 'optionTwo' for vote in user.votes.all()}
 
 
-class CreateQuestionSerializer(serializers.ModelSerializer):
+class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = (

@@ -1,5 +1,6 @@
-from typing import Dict
 from rest_framework import serializers
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 from services.utils.serializers import DictSerializer
 from .models import Option, Question, Vote
 
@@ -53,9 +54,15 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
 
     def create(self, question):
         user = self.context['request'].user
+        question_keys = [f'{question.option_one.label}{question.option_two.label}' for question in Question.objects.filter(
+            Q(option_one__label = question['option_one'], option_two__label = question['option_two']) | Q(option_one__label = question['option_two'], option_two__label = question['option_one'])
+        )]
 
         if question['option_one'] == question['option_two']:
-            raise ValueError('Option one and two cannot be the same.')
+            raise ValidationError('Option one and two cannot be the same.')
+
+        elif f"{question['option_one']}{question['option_two']}" in question_keys or f"{question['option_two']}{question['option_one']}" in question_keys:
+            raise ValidationError('This question already exists.')
 
         req_option_labels = [question['option_one'], question['option_two']]
 
@@ -86,6 +93,11 @@ class VoteSerializer(serializers.ModelSerializer):
         choice = vote['choice']
         vote = Vote.objects.filter(voter = user, question = question)
 
+        vote_keys = [f'{vote.voter.id}{vote.question.id}' for vote in Vote.objects.filter(voter = self.voter, question = self.question)]
+
+        if f'{self.voter.id}{self.question.id}' in vote_keys:
+            raise ValidationError('You have already answered this question.')
+
         if len(vote) == 0 and choice.label in [question.option_one.label, question.option_two.label]:
             new_vote = Vote.objects.create(
                 voter = user,
@@ -94,9 +106,9 @@ class VoteSerializer(serializers.ModelSerializer):
             )
 
         elif len(vote) == 0:
-            raise ValueError('The choice must match one of the options related to the question.')
+            raise ValidationError('The choice must match one of the options related to the question.')
 
         else:
-            raise ValueError('Only one vote can exist for each user and question.')
+            raise ValidationError('Only one vote can exist for each user and question.')
 
         return new_vote

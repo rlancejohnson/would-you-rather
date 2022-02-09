@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 import Header from './components/Header';
@@ -14,12 +13,6 @@ import Leaderboard from './pages/Leaderboard';
 * @constructor
 */
 export default function App() {
-    const { loading } = useSelector((state) => {
-        return {
-            loading: state.loadingBar.default !== 0
-        };
-    });
-
     return (
         <BrowserRouter>
             <div>
@@ -27,16 +20,11 @@ export default function App() {
                 <LoadingBar />
                 <Routes>
                     <Route path='/login' element={<Login />} />
+                    <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />
+                    <Route path='/question/:id' element={<RequireAuth><QuestionDetail /></RequireAuth>} />
+                    <Route path='/add' element={<RequireAuth><CreateQuestion /></RequireAuth>} />
+                    <Route path='/leaderboard' element={<RequireAuth><Leaderboard /></RequireAuth>} />
                 </Routes>
-
-                {(loading === false) &&
-                    <Routes>
-                        <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />
-                        <Route path='/question/:id' element={<RequireAuth><QuestionDetail /></RequireAuth>} />
-                        <Route path='/add' element={<RequireAuth><CreateQuestion /></RequireAuth>} />
-                        <Route path='/leaderboard' element={<RequireAuth><Leaderboard /></RequireAuth>} />
-                    </Routes>
-                }
             </div>
         </BrowserRouter>
     );

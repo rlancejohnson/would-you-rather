@@ -56,9 +56,9 @@ export default function Header() {
                 {authedUser && (
                     <div className={styles['profile']}>
                         <Avatar
-                            url={users[authedUser].avatarURL}
+                            url={users[authedUser]?.avatarURL}
                             diameter='40px' />
-                        <span className={styles['profile-name']}>{users[authedUser].name}</span>
+                        <span className={styles['profile-name']}>{users[authedUser]?.name}</span>
                         <Link
                             to='/login'
                             className={styles['logout-button']}

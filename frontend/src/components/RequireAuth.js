@@ -11,7 +11,7 @@ import { setAuthedUser } from '../actions/authedUser';
 export default function RequireAuth({ children }) {
     const dispatch = useDispatch();
     const location = useLocation();
-    const cachedAuthedUser = window.localStorage.getItem('authedUserId');
+    const cachedAuthedUser = sessionStorage.getItem('authedUserId');
 
     const authedUser = useSelector(state => cachedAuthedUser !== null ? cachedAuthedUser : state.authedUser);
 

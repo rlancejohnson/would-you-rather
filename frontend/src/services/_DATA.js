@@ -19,7 +19,7 @@ export function _register(first_name, last_name, email, username, password, avat
 }
 
 export function _login(username, password) {
-    return new Promise((resolve) => {
+    return new Promise(() => {
         fetch('http://localhost:8000/login/', {
             method: 'POST',
             headers: {
@@ -29,30 +29,49 @@ export function _login(username, password) {
             body: JSON.stringify({
                 username,
                 password
-            }).then(({ token }) => resolve(token))
+            }).then(({ token }) => {
+                sessionStorage.setItem('accessToken', token)
+            })
         })
     })
 }
 
 export function _getUsers() {
     return new Promise((resolve) => {
-        fetch('http://localhost:8000/api/v1/users/')
-            .then((response) => resolve(response.json()))
+        const userId = sessionStorage.getItem('accessToken')
+
+        fetch('http://localhost:8000/api/v1/users/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${userId}`,
+                'Accept': 'application/json'
+            }
+        }).then((response) => resolve(response.json()))
     })
 }
 
 export function _getQuestions() {
     return new Promise((resolve) => {
-        fetch('http://localhost:8000/api/v1/questions/')
-            .then((response) => resolve(response.json()))
+        const userId = sessionStorage.getItem('accessToken')
+
+        fetch('http://localhost:8000/api/v1/questions/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${userId}`,
+                'Accept': 'application/json'
+            }
+        }).then((response) => resolve(response.json()))
     })
 }
 
 export function _saveQuestion({ optionOneText, optionTwoText }) {
     return new Promise((resolve) => {
+        const userId = sessionStorage.getItem('accessToken')
+
         fetch('http://localhost:8000/api/v1/question/', {
             method: 'POST',
             headers: {
+                'Authorization': `Token ${userId}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
@@ -69,9 +88,12 @@ export function _saveQuestion({ optionOneText, optionTwoText }) {
 
 export function _saveQuestionAnswer({ qid, answer }) {
     return new Promise((resolve) => {
+        const userId = sessionStorage.getItem('accessToken')
+
         fetch('http://localhost:8000/api/v1/vote/', {
             method: 'POST',
             headers: {
+                'Authorization': `Token ${userId}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },

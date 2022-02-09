@@ -22,6 +22,7 @@ from rest_framework.routers import DefaultRouter
 
 
 from services.profiles.views import (
+    CustomAuthToken,
     RegisterUserViewSet,
     UserViewSet
 )
@@ -38,7 +39,7 @@ router.register(r'votes', VoteViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', RegisterUserViewSet.as_view({'post': 'create'})),
-    path('login/', obtain_auth_token),
+    path('login/', CustomAuthToken.as_view()),
     path('api/v1/', include(router.urls)),
 ]
 

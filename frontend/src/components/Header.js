@@ -26,6 +26,7 @@ export default function Header() {
     ];
 
     const handleLogout = () => {
+        sessionStorage.removeItem('accessToken')
         dispatch(setAuthedUser(null));
     }
 

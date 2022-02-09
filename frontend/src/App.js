@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { handleSetInitialData } from './actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import Header from './components/Header';
 import RequireAuth from './components/RequireAuth';
@@ -13,11 +16,29 @@ import Leaderboard from './pages/Leaderboard';
 * @constructor
 */
 export default function App() {
+    const dispatch = useDispatch()
+    const { authedUser, accessToken } = useSelector((state) => {
+        const cachedAuthedUser = sessionStorage.getItem('authedUserId')
+        const cachedAccessToken = sessionStorage.getItem('accessToken')
+
+        return {
+            authedUser: cachedAuthedUser ? cachedAuthedUser : state.authedUser,
+            accessToken: cachedAccessToken
+        }
+    })
+
+    useEffect(() => {
+        if (authedUser && accessToken) {
+            dispatch(handleSetInitialData())
+        }
+    })
+
     return (
         <BrowserRouter>
             <div>
                 <Header />
                 <LoadingBar />
+
                 <Routes>
                     <Route path='/login' element={<Login />} />
                     <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />

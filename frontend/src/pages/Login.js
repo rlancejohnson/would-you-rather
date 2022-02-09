@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
-import { handleSetInitialData } from '../actions/shared';
 import { _register, _login } from '../services/_DATA';
 import styles from './Login.module.css';
 import logo from '../assets/images/logo_large.png';
+
 
 /**
 * @description Component for the login page to authenticate/impersonate a user
@@ -50,10 +50,9 @@ export default function Login() {
         const { username, password } = formData
 
         _login(username, password)
-            .then(({ token }) => {
+            .then(({ token, username }) => {
                 sessionStorage.setItem('accessToken', token)
-                dispatch(setAuthedUser('rlancejohnson'))
-                dispatch(handleSetInitialData())
+                dispatch(setAuthedUser(username))
                 navigate(location.state?.from?.pathname || '/', { replace: true });
             })
     }

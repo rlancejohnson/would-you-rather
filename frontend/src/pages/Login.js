@@ -1,8 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Dropdown } from 'react-dropdown-now';
-import 'react-dropdown-now/style.css';
 import { setAuthedUser } from '../actions/authedUser';
+import { handleSetInitialData } from '../actions/shared';
+import { _register, _login } from '../services/_DATA';
 import styles from './Login.module.css';
 import logo from '../assets/images/logo_large.png';
 
@@ -12,14 +13,57 @@ import logo from '../assets/images/logo_large.png';
 */
 export default function Login() {
     const dispatch = useDispatch();
-    const users = useSelector((state) => state.users);
     const location = useLocation();
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState('login')
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        username: '',
+        password: '',
+        avatar: null
+    })
 
-    const handleChange = ({ value }) => {
-        dispatch(setAuthedUser(value));
-        navigate(location.state?.from?.pathname || '/', { replace: true });
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value
+        })
     };
+
+    const handleAvatarUpload = (e) => {
+        let avatarInput = document.createElement('input')
+        avatarInput.type = 'file'
+        avatarInput.accept = 'image/*'
+        avatarInput.addEventListener('change', (e) => {
+            setFormData({
+                ...formData,
+                avatar: e.target.files[0]
+            })
+        })
+
+        avatarInput.dispatchEvent(new MouseEvent('click'))
+    }
+
+    const handleUserLogin = () => {
+        const { username, password } = formData
+
+        _login(username, password)
+            .then(({ token }) => {
+                sessionStorage.setItem('accessToken', token)
+                dispatch(setAuthedUser('rlancejohnson'))
+                dispatch(handleSetInitialData())
+                navigate(location.state?.from?.pathname || '/', { replace: true });
+            })
+    }
+
+    const handleUserRegister = () => {
+        _register(formData)
+            .then(() => {
+
+            })
+    }
 
     return (
         <div className={styles['layout']}>
@@ -31,12 +75,83 @@ export default function Login() {
                 />
             </div>
             <div className={styles['section']}>
-                <Dropdown
-                    placeholder="Select a user to login..."
-                    className={styles['user-selector']}
-                    options={Object.keys(users).map((userId) => { return { value: userId, label: users[userId].name } })}
-                    onChange={handleChange}
-                />
+                <div className={styles['layout']}>
+                    <div>
+                        <div
+                            onClick={() => setActiveTab('login')}>
+                            Login
+                        </div>
+                        <div
+                            onClick={() => setActiveTab('register')}>
+                            Sign Up
+                        </div>
+                    </div>
+                    <div className={styles['layout']}>
+                        {activeTab === 'login' && (
+                            <div>
+                                <input
+                                    id='username'
+                                    type='text'
+                                    placeholder="Username..."
+                                    onBlur={handleChange}
+                                />
+                                <input
+                                    id='password'
+                                    type='password'
+                                    placeholder="Password..."
+                                    onBlur={handleChange}
+                                />
+                                <button
+                                    onClick={handleUserLogin}>
+                                    Login
+                                </button>
+                            </div>
+                        )}
+                        {activeTab === 'register' && (
+                            <div>
+                                <input
+                                    id='first_name'
+                                    type='text'
+                                    placeholder="First Name..."
+                                    onBlur={handleChange}
+                                />
+                                <input
+                                    id='last_name'
+                                    type='text'
+                                    placeholder="Last Name..."
+                                    onBlur={handleChange}
+                                />
+                                <input
+                                    id='email'
+                                    type='email'
+                                    placeholder="Email..."
+                                    onBlur={handleChange}
+                                />
+                                <input
+                                    id='username'
+                                    type='text'
+                                    placeholder="Username..."
+                                    onBlur={handleChange}
+                                />
+                                <input
+                                    id='password'
+                                    type='password'
+                                    placeholder="Password..."
+                                    onBlur={handleChange}
+                                />
+                                <button
+                                    onClick={handleAvatarUpload}>
+                                    Select Profile Image
+                                </button>
+                                <button
+                                    onClick={handleUserRegister}>
+                                    Sign Up
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
             </div>
         </div>
     )

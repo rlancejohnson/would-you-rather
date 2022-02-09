@@ -31,7 +31,7 @@ export default function App() {
         if (authedUser && accessToken) {
             dispatch(handleSetInitialData())
         }
-    })
+    }, [dispatch, authedUser, accessToken])
 
     return (
         <BrowserRouter>

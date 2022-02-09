@@ -12,6 +12,7 @@ export default function RequireAuth({ children }) {
     const dispatch = useDispatch();
     const location = useLocation();
     const cachedAuthedUser = sessionStorage.getItem('authedUserId');
+    const cachedAccessToken = sessionStorage.getItem('accessToken');
 
     const authedUser = useSelector(state => cachedAuthedUser !== null ? cachedAuthedUser : state.authedUser);
 
@@ -21,7 +22,7 @@ export default function RequireAuth({ children }) {
         }
     }, [dispatch, cachedAuthedUser]);
 
-    if (!authedUser) {
+    if (!authedUser || !cachedAccessToken) {
         return (
             <Navigate to='/login' state={{ from: location }} replace />
         );

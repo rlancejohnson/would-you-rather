@@ -1,38 +1,34 @@
-export function _register(first_name, last_name, email, username, password, avatar) {
-    let form_data = new FormData()
-    form_data.append('first_name', first_name)
-    form_data.append('last_name', last_name)
-    form_data.append('email', email)
-    form_data.append('username', username)
-    form_data.append('password', password)
-    form_data.append('avatar', avatar)
-
+export function _register({ first_name, last_name, email, username, password, avatar }) {
     return new Promise((resolve) => {
-        fetch('http://localhost:8000/register/', form_data, {
+        let form_data = new FormData()
+        form_data.append('first_name', first_name)
+        form_data.append('last_name', last_name)
+        form_data.append('email', email)
+        form_data.append('username', username)
+        form_data.append('password', password)
+        form_data.append('avatar', avatar)
+
+        fetch('http://localhost:8000/register/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Accept': 'application/json'
-            }
+            },
+            body: form_data
         }).then((newUser) => resolve(newUser))
     })
 }
 
 export function _login(username, password) {
-    return new Promise(() => {
+    return new Promise((resolve) => {
         fetch('http://localhost:8000/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                username,
-                password
-            }).then(({ token }) => {
-                sessionStorage.setItem('accessToken', token)
-            })
-        })
+            body: JSON.stringify({ username, password })
+        }).then((response) => resolve(response.json()))
     })
 }
 

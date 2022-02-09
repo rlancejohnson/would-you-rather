@@ -7,10 +7,10 @@ export const SET_AUTHED_USER = 'SET_AUTHED_USER';
 */
 export function setAuthedUser(id) {
     if (id) {
-        window.localStorage.setItem('authedUserId', id);
+        sessionStorage.setItem('authedUserId', id);
 
     } else {
-        window.localStorage.removeItem('authedUserId');
+        sessionStorage.removeItem('authedUserId');
     }
 
     return {

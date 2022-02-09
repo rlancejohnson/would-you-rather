@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { handleSetInitialData } from './actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import Header from './components/Header';
 import RequireAuth from './components/RequireAuth';
@@ -16,26 +14,23 @@ import Leaderboard from './pages/Leaderboard';
 * @constructor
 */
 export default function App() {
-    const dispatch = useDispatch();
     const { loading } = useSelector((state) => {
         return {
             loading: state.loadingBar.default !== 0
         };
     });
 
-    useEffect(() => {
-        dispatch(handleSetInitialData())
-    }, [dispatch]);
-
     return (
         <BrowserRouter>
             <div>
                 <Header />
                 <LoadingBar />
+                <Routes>
+                    <Route path='/login' element={<Login />} />
+                </Routes>
 
                 {(loading === false) &&
                     <Routes>
-                        <Route path='/login' element={<Login />} />
                         <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />
                         <Route path='/question/:id' element={<RequireAuth><QuestionDetail /></RequireAuth>} />
                         <Route path='/add' element={<RequireAuth><CreateQuestion /></RequireAuth>} />

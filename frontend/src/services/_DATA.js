@@ -1,12 +1,36 @@
-export function _register() {
-    return new Promise((resolve) => {
+export function _register(first_name, last_name, email, username, password, avatar) {
+    let form_data = new FormData()
+    form_data.append('first_name', first_name)
+    form_data.append('last_name', last_name)
+    form_data.append('email', email)
+    form_data.append('username', username)
+    form_data.append('password', password)
+    form_data.append('avatar', avatar)
 
+    return new Promise((resolve) => {
+        fetch('http://localhost:8000/register/', form_data, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json'
+            }
+        }).then((newUser) => resolve(newUser))
     })
 }
 
-export function _login() {
+export function _login(username, password) {
     return new Promise((resolve) => {
-
+        fetch('http://localhost:8000/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password
+            }).then(({ token }) => resolve(token))
+        })
     })
 }
 

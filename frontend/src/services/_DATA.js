@@ -10,10 +10,6 @@ export function _register({ first_name, last_name, email, username, password, av
 
         fetch('http://localhost:8000/register/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json'
-            },
             body: form_data
         }).then((newUser) => resolve(newUser))
     })

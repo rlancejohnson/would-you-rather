@@ -1,5 +1,6 @@
 
-from rest_framework import viewsets
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.db.models import Q
 from django.core.exceptions import ValidationError
@@ -7,8 +8,9 @@ from .models import Question, Option, Vote
 from .serializers import CreateQuestionSerializer, GetQuestionSerializer, VoteSerializer
 
 
-class QuestionViewSet(viewsets.ModelViewSet):
+class QuestionViewSet(ModelViewSet):
     queryset = Question.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         print(self.request)
@@ -47,9 +49,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
         return Response(GetQuestionSerializer(new_question).data)
 
 
-class VoteViewSet(viewsets.ModelViewSet):
+class VoteViewSet(ModelViewSet):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

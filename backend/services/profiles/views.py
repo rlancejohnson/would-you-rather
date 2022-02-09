@@ -1,15 +1,17 @@
-from rest_framework import viewsets, permissions
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 from .models import User
-from .serializers import CreateUserSerializer, GetUserSerializer
+from .serializers import RegisterUserSerializer, UserSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
+
+class RegisterUserViewSet(ModelViewSet):
+    serializer_class = RegisterUserSerializer
+
+class UserViewSet(ModelViewSet):
     queryset = get_user_model().objects.all()
-    # permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-
-    def get_serializer_class(self):
-        return CreateUserSerializer if self.request.method == 'POST' else GetUserSerializer
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

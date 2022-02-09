@@ -4,7 +4,34 @@ from services.utils.serializers import DictSerializer
 from services.voting.models import Question
 
 
-class GetUserSerializer(serializers.ModelSerializer):
+class RegisterUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'username',
+            'email',
+            'password',
+            'first_name',
+            'last_name',
+            'avatar',
+        )
+
+    def create(self, validated_data):
+        User = get_user_model()
+        user = User(
+            username = validated_data['username'],
+            email = validated_data['email'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            avatar = validated_data['avatar']
+        )
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
+
+class UserSerializer(serializers.ModelSerializer):
     id = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
     avatarURL = serializers.SerializerMethodField()
@@ -38,31 +65,3 @@ class GetUserSerializer(serializers.ModelSerializer):
     def get_answers(self, user):
         questions = {question['id']: question for question in Question.objects.values()}
         return {vote.question.id: 'optionOne' if questions[vote.question.id]['option_one_id'] == vote.choice.id else 'optionTwo' for vote in user.votes.all()}
-
-
-class CreateUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = (
-            'username',
-            'email',
-            'password',
-            'first_name',
-            'last_name',
-            'avatar',
-        )
-
-    def create(self, validated_data):
-        User = get_user_model()
-        user = User(
-            username = validated_data['username'],
-            email = validated_data['email'],
-            first_name = validated_data['first_name'],
-            last_name = validated_data['last_name'],
-            avatar = validated_data['avatar']
-        )
-
-        user.set_password(validated_data['password'])
-        user.save()
-
-        return user

@@ -1,24 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { getClasses } from '../services/utils'
-import styles from 'Tabs.module.css'
-import Tab from './Tab'
+import styles from './Tabs.module.css'
 
-export default function Tabs({ tabs, defaultTab, children }) {
-    const [activeTab, setActiveTab] = useState(defaultTab);
+export default function Tabs({ defaultTab, children }) {
+    const [activeTab, setActiveTab] = useState('')
+
+    useEffect(() => {
+        setActiveTab(defaultTab)
+    }, [defaultTab])
 
     return (
-        <div className={getClasses(styles, ['grid-vertical'])}>
+        <div className={getClasses(styles, ['grid-vertical', 'grid-gap-small'])}>
             <div className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area'])}>
-                {tabs && tabs?.length > 0 && tabs.map((tab) => (
-                    <Tab
-                        label={tab.label}
-                        color={tab.color}
-                        setActiveTab={setActiveTab}
-                    />
+                {children.map((child) => (
+                    <button
+                        key={child.props.label}
+                        className={getClasses(styles, child.props.label === activeTab ? ['tab', 'active-tab'] : ['tab'])}
+                        onClick={() => setActiveTab(child.props.label)}>
+                        <span>{child.props.label}</span>
+                    </button>
                 ))}
-                {children.map((child) => {
-                    return child.props.label === activeTab && child
-                })}
+            </div>
+            <div>
+                {children.map((child) => child.props.label === activeTab && child)}
             </div>
         </div >
     )

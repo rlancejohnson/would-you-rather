@@ -53,6 +53,8 @@ class CreateQuestionSerializer(serializers.Serializer):
         )
 
 class VoteSerializer(serializers.ModelSerializer):
+    choice = serializers.CharField()
+
     class Meta:
         model = Vote
         fields = (
@@ -65,24 +67,24 @@ class VoteSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         question = vote['question']
         choice = vote['choice']
-        vote = Vote.objects.filter(voter = user, question = question)
+        vote = Vote.objects.filter(voter=user, question=question)
 
-        vote_keys = [f'{vote.voter.id}{vote.question.id}' for vote in Vote.objects.filter(voter = self.voter, question = self.question)]
+        vote_keys = [f'{vote.voter.id}{vote.question.id}' for vote in Vote.objects.filter(voter=user, question=question)]
 
-        if f'{self.voter.id}{self.question.id}' in vote_keys:
+        if choice != 'optionOne' and choice != 'optionTwo':
+            raise ValidationError('A valid choice includes either optionOne or optionTwo.')
+
+        elif f'{user.id}{question.id}' in vote_keys:
             raise ValidationError('You have already answered this question.')
 
-        if len(vote) == 0 and choice.label in [question.option_one.label, question.option_two.label]:
+        elif len(vote) > 0:
+            raise ValidationError('Only one vote can exist for each user and question.')
+
+        else:
             new_vote = Vote.objects.create(
                 voter = user,
                 question = question,
-                choice = choice
+                choice = question.option_one if choice == 'optionOne' else question.option_two
             )
-
-        elif len(vote) == 0:
-            raise ValidationError('The choice must match one of the options related to the question.')
-
-        else:
-            raise ValidationError('Only one vote can exist for each user and question.')
 
         return new_vote

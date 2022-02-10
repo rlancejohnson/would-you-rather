@@ -59,11 +59,14 @@ export function _getQuestions() {
 export function _saveQuestion({ optionOneText, optionTwoText }) {
     return new Promise((resolve) => {
         const userId = sessionStorage.getItem('accessToken')
+        const csrfToken = sessionStorage.getItem('csrfToken')
 
-        fetch('http://localhost:8000/api/v1/question/', {
+        fetch('http://localhost:8000/api/v1/questions/', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Authorization': `Token ${userId}`,
+                'X-CSRFToken': csrfToken,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
@@ -81,11 +84,13 @@ export function _saveQuestion({ optionOneText, optionTwoText }) {
 export function _saveQuestionAnswer({ qid, answer }) {
     return new Promise((resolve) => {
         const userId = sessionStorage.getItem('accessToken')
+        const csrfToken = sessionStorage.getItem('csrfToken')
 
-        fetch('http://localhost:8000/api/v1/vote/', {
+        fetch('http://localhost:8000/api/v1/votes/', {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${userId}`,
+                'X-CSRFToken': csrfToken,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },

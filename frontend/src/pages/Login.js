@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 import { setAuthedUser } from '../actions/authedUser';
 import { _register, _login } from '../services/_DATA';
 import styles from './Login.module.css';
@@ -16,6 +17,7 @@ export default function Login() {
     const location = useLocation();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('login')
+    const [formError, setFormError] = useState('')
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -25,12 +27,21 @@ export default function Login() {
         avatar: null
     })
 
-    const handleChange = (e) => {
+    const handleTabChange = (e) => {
+        const { id } = e.target
+
+        setActiveTab(id)
+        setFormError('')
+    }
+
+    const handleFieldChange = (e) => {
+        const { name, value } = e.target
+
         setFormData({
             ...formData,
-            [e.target.id]: e.target.value
+            [name]: value
         })
-    };
+    }
 
     const handleAvatarUpload = (e) => {
         let avatarInput = document.createElement('input')
@@ -49,19 +60,35 @@ export default function Login() {
     const handleUserLogin = () => {
         const { username, password } = formData
 
-        _login(username, password)
-            .then(({ token, username }) => {
-                sessionStorage.setItem('accessToken', token)
-                dispatch(setAuthedUser(username))
-                navigate(location.state?.from?.pathname || '/', { replace: true });
-            })
+        if (!username || !password) {
+            setFormError('All fields are required to login.')
+
+        } else {
+            _login(username, password)
+                .then(({ token, username }) => {
+                    sessionStorage.setItem('accessToken', token)
+
+                    const csrfToken = Cookies.get('csrftoken')
+                    sessionStorage.setItem('csrfToken', csrfToken)
+
+                    dispatch(setAuthedUser(username))
+                    navigate(location.state?.from?.pathname || '/', { replace: true });
+                })
+        }
     }
 
     const handleUserRegister = () => {
-        _register(formData)
-            .then(() => {
+        const { first_name, last_name, email, username, password, avatar } = formData
 
-            })
+        if (!first_name || !last_name || !email || !username || !password || !avatar) {
+            setFormError('All fields are required to login.')
+
+        } else {
+            _register(formData)
+                .then(() => {
+                    setActiveTab('login')
+                })
+        }
     }
 
     return (
@@ -77,28 +104,35 @@ export default function Login() {
                 <div className={styles['layout']}>
                     <div>
                         <div
-                            onClick={() => setActiveTab('login')}>
+                            id='login'
+                            onClick={handleTabChange}>
                             Login
                         </div>
                         <div
-                            onClick={() => setActiveTab('register')}>
+                            id='register'
+                            onClick={handleTabChange}>
                             Sign Up
                         </div>
                     </div>
+                    {formError && (
+                        <div>{formError}</div>
+                    )}
                     <div className={styles['layout']}>
                         {activeTab === 'login' && (
                             <div>
                                 <input
-                                    id='username'
+                                    name='username'
                                     type='text'
                                     placeholder="Username..."
-                                    onBlur={handleChange}
+                                    value={formData.username}
+                                    onChange={handleFieldChange}
                                 />
                                 <input
-                                    id='password'
+                                    name='password'
                                     type='password'
                                     placeholder="Password..."
-                                    onBlur={handleChange}
+                                    value={formData.password}
+                                    onChange={handleFieldChange}
                                 />
                                 <button
                                     onClick={handleUserLogin}>
@@ -109,34 +143,39 @@ export default function Login() {
                         {activeTab === 'register' && (
                             <div>
                                 <input
-                                    id='first_name'
+                                    name='first_name'
                                     type='text'
                                     placeholder="First Name..."
-                                    onBlur={handleChange}
+                                    value={formData.first_name}
+                                    onChange={handleFieldChange}
                                 />
                                 <input
-                                    id='last_name'
+                                    name='last_name'
                                     type='text'
                                     placeholder="Last Name..."
-                                    onBlur={handleChange}
+                                    value={formData.last_name}
+                                    onChange={handleFieldChange}
                                 />
                                 <input
-                                    id='email'
+                                    name='email'
                                     type='email'
                                     placeholder="Email..."
-                                    onBlur={handleChange}
+                                    value={formData.email}
+                                    onChange={handleFieldChange}
                                 />
                                 <input
-                                    id='username'
+                                    name='username'
                                     type='text'
                                     placeholder="Username..."
-                                    onBlur={handleChange}
+                                    value={formData.username}
+                                    onChange={handleFieldChange}
                                 />
                                 <input
-                                    id='password'
+                                    name='password'
                                     type='password'
                                     placeholder="Password..."
-                                    onBlur={handleChange}
+                                    value={formData.password}
+                                    onChange={handleFieldChange}
                                 />
                                 <button
                                     onClick={handleAvatarUpload}>

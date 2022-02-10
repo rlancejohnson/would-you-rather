@@ -1,0 +1,19 @@
+.btn {
+    background: #0075ff;
+    border-radius: 10px;
+    border: none;
+    font-family: sans-serif;
+    color: #fff;
+    padding: 10px 50px 10px 50px;
+    font-size: 18px;
+}
+
+.btn-disabled {
+    background: #b7b7b7;
+    border-radius: 10px;
+    border: none;
+    font-family: sans-serif;
+    color: #fff;
+    padding: 10px 50px 10px 50px;
+    font-size: 18px;
+}

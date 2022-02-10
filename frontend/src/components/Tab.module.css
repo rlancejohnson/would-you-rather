@@ -1,0 +1,9 @@
+.tab {
+    margin-top: 80px;
+    font-size: 1.25rem;
+}
+
+.active-tab {
+    padding-bottom: 10px;
+    border-bottom: 3px solid #00b21d;
+}

@@ -1,0 +1,20 @@
+.grid {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.grid-vertical {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.grid-gap-small {
+    gap: 20px;
+}
+
+.content-area {
+    flex-basis: 80%;
+    font-family: sans-serif;
+}

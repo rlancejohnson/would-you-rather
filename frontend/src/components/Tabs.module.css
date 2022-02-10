@@ -2,21 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: baseline;
-}
-
-.grid-vertical {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+    margin: 50px;
 }
 
 .grid-gap-small {
     gap: 40px;
-}
-
-.content-area {
-    flex-basis: 80%;
-    font-family: sans-serif;
 }
 
 .tab {

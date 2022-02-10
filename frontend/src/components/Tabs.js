@@ -10,8 +10,8 @@ export default function Tabs({ defaultTab, children }) {
     }, [defaultTab])
 
     return (
-        <div className={getClasses(styles, ['grid-vertical', 'grid-gap-small'])}>
-            <div className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area'])}>
+        <div>
+            <div className={getClasses(styles, ['grid', 'grid-gap-small'])}>
                 {children.map((child) => (
                     <button
                         key={child.props.label}
@@ -24,6 +24,6 @@ export default function Tabs({ defaultTab, children }) {
             <div>
                 {children.map((child) => child.props.label === activeTab && child)}
             </div>
-        </div >
+        </div>
     )
 }

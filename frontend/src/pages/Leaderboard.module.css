@@ -42,6 +42,10 @@
     font-size: 1.25rem;
 }
 
+.score-card-list {
+    flex-basis: 50%;
+}
+
 .score-card {
     align-items: center;
     background: #fff;

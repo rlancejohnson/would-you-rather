@@ -25,35 +25,36 @@ export default function Leaderboard() {
             <div className={getClasses(styles, ['content-area', 'title'])}>
                 Leaderboard
             </div>
-            <div className={getClasses(styles, ['form', 'grid-vertical', 'grid-gap-small'])}>
-                {sortedUserIds && sortedUserIds.map(userId => (
-                    <div
-                        key={userId}
-                        className={getClasses(styles, ['grid', 'grid-gap-small', 'score-card', 'baseline'])}>
-                        <div>
-                            <Avatar
-                                url={users[userId].avatarURL}
-                                diameter={75}
-                            />
-                        </div>
-                        <div className={getClasses(styles, ['grid-vertical', 'score-details'])}>
-                            <div className={getClasses(styles, ['username'])}>
-                                {users[userId].name}
+            <div className={getClasses(styles, ['form'])}>
+                <div className={getClasses(styles, ['score-card-list', 'grid-vertical', 'grid-gap-small'])}>
+                    {sortedUserIds && sortedUserIds.map(userId => (
+                        <div
+                            key={userId}
+                            className={getClasses(styles, ['grid', 'grid-gap-small', 'score-card', 'baseline'])}>
+                            <div>
+                                <Avatar
+                                    url={users[userId].avatarURL}
+                                    diameter={75}
+                                />
                             </div>
-                            <div>Questions Answered: {Object.keys(users[userId].answers).length}</div>
-                            <div>Questions Asked: {users[userId].questions.length}</div>
-                        </div>
-                        <div className={getClasses(styles, ['grid-vertical', 'score-badge'])}>
-                            <div className={getClasses(styles, ['score-label'])}>
-                                Score
+                            <div className={getClasses(styles, ['grid-vertical', 'score-details'])}>
+                                <div className={getClasses(styles, ['username'])}>
+                                    {users[userId].name}
+                                </div>
+                                <div>Questions Answered: {Object.keys(users[userId].answers).length}</div>
+                                <div>Questions Asked: {users[userId].questions.length}</div>
                             </div>
-                            <div className={getClasses(styles, ['score'])}>
-                                {Object.keys(users[userId].answers).length + users[userId].questions.length}
+                            <div className={getClasses(styles, ['grid-vertical', 'score-badge'])}>
+                                <div className={getClasses(styles, ['score-label'])}>
+                                    Score
+                                </div>
+                                <div className={getClasses(styles, ['score'])}>
+                                    {Object.keys(users[userId].answers).length + users[userId].questions.length}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-
+                    ))}
+                </div>
             </div>
         </div>
     );

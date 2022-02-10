@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { handleAddQuestion } from '../actions/questions';
 import styles from './CreateQuestion.module.css';
+import InputField from '../components/InputField';
+import FormHelptext from '../components/FormHelptext';
+import FormButton from '../components/FormButton';
 
 /**
 * @description Component for the create question page
@@ -17,9 +20,11 @@ export default function CreateQuestion() {
     });
 
     const handleChange = (e) => {
+        const { name, value } = e.target
+
         setOptions({
             ...options,
-            [e.target.id]: e.target.value
+            [name]: value
         });
     }
 
@@ -43,33 +48,27 @@ export default function CreateQuestion() {
                     <div className={`${styles['question-header']} ${styles['template-text']}`}>
                         Would you rather...
                     </div>
-                    <input
-                        id='optionOneText'
+                    <InputField
+                        name='optionOneText'
                         type='text'
-                        className={styles['option-input']}
                         value={options.optionOneText}
-                        onChange={handleChange}
-                        required
+                        placeholder='Option one...'
+                        handleChange={handleChange}
                     />
                     <div className={styles['template-text']}>OR</div>
-                    <input
-                        id='optionTwoText'
+                    <InputField
+                        name='optionTwoText'
                         type='text'
-                        className={styles['option-input']}
                         value={options.optionTwoText}
-                        onChange={handleChange}
-                        required
+                        placeholder='Option two...'
+                        handleChange={handleChange}
                     />
-                    <div className={styles['help-text']}>
-                        Both options are required to submit the question.
-                    </div>
-                    <button
-                        className={options.optionOneText === '' || options.optionTwoText === '' ? styles['submit-btn-disabled'] : styles['submit-btn']}
-                        disabled={options.optionOneText === '' || options.optionTwoText === ''}
-                        title='Both options must be filled out to submit.'
-                        onClick={handleSubmit}>
-                        Submit
-                    </button>
+                    <FormHelptext text='Both options are required to submit the question.' />
+                    <FormButton
+                        label='Submit'
+                        handleClick={handleSubmit}
+                        disabledCondition={options.optionOneText === '' || options.optionTwoText === ''}
+                    />
                 </div>
             </div>
         </div>

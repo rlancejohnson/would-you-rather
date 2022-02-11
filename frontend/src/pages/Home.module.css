@@ -19,16 +19,6 @@
     font-family: sans-serif;
 }
 
-.tab {
-    margin-top: 80px;
-    font-size: 1.25rem;
-}
-
-.active-tab {
-    padding-bottom: 10px;
-    border-bottom: 3px solid #00b21d;
-}
-
 .template-text {
     font-weight: bold;
     font-size: 1.25rem;
@@ -39,7 +29,6 @@
     background-color: #e5e5e5;
     position: absolute;
     border-radius: 20px 20px 0px 0px;
-    margin-top: 150px;
     width: 75vw;
     height: 77vh;
     overflow-y: scroll;

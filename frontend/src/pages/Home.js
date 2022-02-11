@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getClasses } from '../services/utils';
 import styles from './Home.module.css';
 import Avatar from '../components/Avatar';
+import Tabs from '../components/Tabs'
 
 /**
 * @description Component for the home page to display unanswered and answered questions
@@ -18,28 +19,13 @@ export default function Home() {
         };
     });
 
-    const [activeTab, setActiveTab] = useState(1);
-
-    const handleTabChange = (e) => {
-        setActiveTab(parseInt(e.target.id));
-    }
-
     return (
         <div className={getClasses(styles, ['grid-vertical'])}>
-            <div className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area'])}>
+            <Tabs defaultTab='Unanswered Questions'>
                 <div
-                    id='1'
-                    className={getClasses(styles, activeTab === 1 ? ['tab', 'active-tab'] : ['tab'])}
-                    onClick={handleTabChange}>
-                    Unanswered Questions
-                </div>
-                <div
-                    id='2'
-                    className={getClasses(styles, activeTab === 2 ? ['tab', 'active-tab'] : ['tab'])}
-                    onClick={handleTabChange}>
-                    Answered Questions
-                </div>
-                {activeTab === 1 &&
+                    label='Unanswered Questions'
+                    color='#00B21D'
+                    className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area'])}>
                     <div className={getClasses(styles, ['grid-vertical', 'content-area', 'form'])}>
                         {(questions && users[authedUser]?.answers) &&
                             Object.keys(questions).filter(qid => {
@@ -71,8 +57,11 @@ export default function Home() {
                                 </div>
                             ))}
                     </div>
-                }
-                {activeTab === 2 &&
+                </div>
+                <div
+                    label='Answered Questions'
+                    color='#00B21D'
+                    className={getClasses(styles, ['grid', 'grid-gap-small', 'content-area'])}>
                     <div className={getClasses(styles, ['grid-vertical', 'content-area', 'form'])}>
                         {users[authedUser]?.answers &&
                             Object.keys(users[authedUser].answers).sort((a, b) => {
@@ -110,8 +99,8 @@ export default function Home() {
                                 </div>
                             ))}
                     </div>
-                }
-            </div>
+                </div>
+            </Tabs>
         </div >
     );
 }

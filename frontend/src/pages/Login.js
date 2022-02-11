@@ -110,6 +110,10 @@ export default function Login() {
                     />
                     <FormButton
                         label='Login'
+                        disabledCondition={
+                            !formData.username ||
+                            !formData.password
+                        }
                         handleClick={handleUserLogin}
                     />
                     <FormHelptext text='All fields are required to login.' />
@@ -167,6 +171,14 @@ export default function Login() {
                     />
                     <FormButton
                         label='Sign Up'
+                        disabledCondition={
+                            !formData.first_name ||
+                            !formData.last_name ||
+                            !formData.email ||
+                            !formData.username ||
+                            !formData.password ||
+                            !formData.avatar
+                        }
                         handleClick={handleUserRegister}
                     />
                     <FormHelptext text='All fields are required to sign up.' />

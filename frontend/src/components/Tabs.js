@@ -21,9 +21,7 @@ export default function Tabs({ defaultTab, children }) {
                     </button>
                 ))}
             </div>
-            <div>
-                {children.map((child) => child.props.label === activeTab && child)}
-            </div>
+            {children.map((child) => child.props.label === activeTab && child)}
         </div>
     )
 }

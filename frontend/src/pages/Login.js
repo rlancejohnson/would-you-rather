@@ -6,6 +6,10 @@ import { setAuthedUser } from '../actions/authedUser';
 import { _register, _login } from '../services/_DATA';
 import styles from './Login.module.css';
 import logo from '../assets/images/logo_large.png';
+import Tabs from '../components/Tabs'
+import InputField from '../components/InputField'
+import FormButton from '../components/FormButton'
+import FormHelptext from '../components/FormHelptext'
 
 
 /**
@@ -13,11 +17,9 @@ import logo from '../assets/images/logo_large.png';
 * @constructor
 */
 export default function Login() {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('login')
-    const [formError, setFormError] = useState('')
+    const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -26,13 +28,6 @@ export default function Login() {
         password: '',
         avatar: null
     })
-
-    const handleTabChange = (e) => {
-        const { id } = e.target
-
-        setActiveTab(id)
-        setFormError('')
-    }
 
     const handleFieldChange = (e) => {
         const { name, value } = e.target
@@ -60,10 +55,7 @@ export default function Login() {
     const handleUserLogin = () => {
         const { username, password } = formData
 
-        if (!username || !password) {
-            setFormError('All fields are required to login.')
-
-        } else {
+        if (username && password) {
             _login(username, password)
                 .then(({ token, username }) => {
                     sessionStorage.setItem('accessToken', token)
@@ -80,117 +72,106 @@ export default function Login() {
     const handleUserRegister = () => {
         const { first_name, last_name, email, username, password, avatar } = formData
 
-        if (!first_name || !last_name || !email || !username || !password || !avatar) {
-            setFormError('All fields are required to login.')
-
-        } else {
+        if (first_name && last_name && email && username && password && avatar) {
             _register(formData)
                 .then(() => {
-                    setActiveTab('login')
+
                 })
         }
     }
 
     return (
-        <div className={styles['layout']}>
-            <div className={styles['section']}>
+        <div>
+            <center>
                 <img
                     src={logo}
                     alt='main logo'
                     className={styles['logo']}
                 />
-            </div>
-            <div className={styles['section']}>
-                <div className={styles['layout']}>
-                    <div>
-                        <div
-                            id='login'
-                            onClick={handleTabChange}>
-                            Login
-                        </div>
-                        <div
-                            id='register'
-                            onClick={handleTabChange}>
-                            Sign Up
-                        </div>
-                    </div>
-                    {formError && (
-                        <div>{formError}</div>
-                    )}
-                    <div className={styles['layout']}>
-                        {activeTab === 'login' && (
-                            <div>
-                                <input
-                                    name='username'
-                                    type='text'
-                                    placeholder="Username..."
-                                    value={formData.username}
-                                    onChange={handleFieldChange}
-                                />
-                                <input
-                                    name='password'
-                                    type='password'
-                                    placeholder="Password..."
-                                    value={formData.password}
-                                    onChange={handleFieldChange}
-                                />
-                                <button
-                                    onClick={handleUserLogin}>
-                                    Login
-                                </button>
-                            </div>
-                        )}
-                        {activeTab === 'register' && (
-                            <div>
-                                <input
-                                    name='first_name'
-                                    type='text'
-                                    placeholder="First Name..."
-                                    value={formData.first_name}
-                                    onChange={handleFieldChange}
-                                />
-                                <input
-                                    name='last_name'
-                                    type='text'
-                                    placeholder="Last Name..."
-                                    value={formData.last_name}
-                                    onChange={handleFieldChange}
-                                />
-                                <input
-                                    name='email'
-                                    type='email'
-                                    placeholder="Email..."
-                                    value={formData.email}
-                                    onChange={handleFieldChange}
-                                />
-                                <input
-                                    name='username'
-                                    type='text'
-                                    placeholder="Username..."
-                                    value={formData.username}
-                                    onChange={handleFieldChange}
-                                />
-                                <input
-                                    name='password'
-                                    type='password'
-                                    placeholder="Password..."
-                                    value={formData.password}
-                                    onChange={handleFieldChange}
-                                />
-                                <button
-                                    onClick={handleAvatarUpload}>
-                                    Select Profile Image
-                                </button>
-                                <button
-                                    onClick={handleUserRegister}>
-                                    Sign Up
-                                </button>
-                            </div>
-                        )}
-                    </div>
+            </center>
+            <Tabs defaultTab='Login'>
+                <div
+                    label='Login'
+                    color='#0075ff'
+                    className={styles['layout']}>
+                    <InputField
+                        name='username'
+                        type='text'
+                        placeholder="Username..."
+                        value={formData.username}
+                        handleChange={handleFieldChange}
+                    />
+                    <InputField
+                        name='password'
+                        type='password'
+                        placeholder="Password..."
+                        value={formData.password}
+                        handleChange={handleFieldChange}
+                    />
+                    <FormButton
+                        label='Login'
+                        handleClick={handleUserLogin}
+                    />
+                    <FormHelptext text='All fields are required to login.' />
                 </div>
-
-            </div>
-        </div>
+                <div
+                    label='Sign Up'
+                    color='#0075ff'
+                    className={styles['layout']}>
+                    <div className={styles['section']}>
+                        <div className={styles['layout']}>
+                            <InputField
+                                name='first_name'
+                                type='text'
+                                placeholder="First Name..."
+                                value={formData.first_name}
+                                handleChange={handleFieldChange}
+                            />
+                            <InputField
+                                name='username'
+                                type='text'
+                                placeholder="Username..."
+                                value={formData.username}
+                                handleChange={handleFieldChange}
+                            />
+                            <InputField
+                                name='email'
+                                type='email'
+                                placeholder="Email..."
+                                value={formData.email}
+                                handleChange={handleFieldChange}
+                            />
+                        </div>
+                        <div className={styles['layout']}>
+                            <InputField
+                                name='last_name'
+                                type='text'
+                                placeholder="Last Name..."
+                                value={formData.last_name}
+                                handleChange={handleFieldChange}
+                            />
+                            <InputField
+                                name='password'
+                                type='password'
+                                placeholder="Password..."
+                                value={formData.password}
+                                handleChange={handleFieldChange}
+                            />
+                        </div>
+                    </div>
+                    <FormHelptext text={formData?.avatar?.name} />
+                    <FormButton
+                        label='Select Profile Image'
+                        color='#00B21D'
+                        handleClick={handleAvatarUpload}
+                    />
+                    <FormButton
+                        label='Sign Up'
+                        handleClick={handleUserRegister}
+                    />
+                    <FormHelptext text='All fields are required to sign up.' />
+                </div>
+            </Tabs >
+        </div >
     )
 }

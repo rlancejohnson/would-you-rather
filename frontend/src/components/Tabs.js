@@ -16,6 +16,7 @@ export default function Tabs({ defaultTab, children }) {
                     <button
                         key={child.props.label}
                         className={getClasses(styles, child.props.label === activeTab ? ['tab', 'active-tab'] : ['tab'])}
+                        style={{ borderBottomColor: child.props.color }}
                         onClick={() => setActiveTab(child.props.label)}>
                         <span>{child.props.label}</span>
                     </button>
